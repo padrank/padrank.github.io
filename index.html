@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="datas.js"></script>
+    <script src="script.js"></script>
+      
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+    <title>PadRank</title>
+
+  </head>
+  <body onload="init()">
+    <div class="container">
+
+      <h1>Bootstrap grid examples</h1>
+      <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+
+      <h3>Property</h3>
+      <select class="form-control" id="property">
+        <option value="none" selected>None</option>
+        <option value="fire">fire</option>
+        <option value="water">water</option>
+        <option value="wood">wood</option>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+      </select>
+        
+      <h3>Type</h3>
+      <div class="form-row">
+        <div class="col-4">
+          <select class="form-control" id="type1" onchange="initType2()">
+            <option selected value="none">(type1)</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <select class="form-control" id="type2" onchange="initType3()">
+            <option selected value="none">(type2)</option>
+          </select>        
+        </div>
+        <div class="col-4">
+          <select class="form-control" id="type3">
+            <option selected value="none">(type3)</option>
+          </select>    
+        </div>
+      </div>
+
+      <h3>Team HP</h3>
+      <div class="row" style="align-items: center;">
+        <div class="progress col-10">
+          <div id="hp-bar" class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+        <div class="col-2">
+          <select class="form-control" id="hp-select" onchange="hpChange()">
+            <option value="100" selected>100%</option>
+            <option value="99">99%</option>
+            <option value="85">85%</option>
+            <option value="75">75%</option>
+            <option value="40">40%</option>
+          </select>
+        </div>
+      </div>
+
+<!--       <input type="range" class="form-control-range" id="formControlRange">
+ -->  <h3>Number of orb</h3>
+      <select class="form-control" id="orb">
+        <option value="3" selected>3</option>
+      </select>
+
+      <div class="row">
+        <div class="col-6">
+          <h3>Level</h3>
+        </div>
+        <div class="col-6">
+          <h3>Super awoken</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <select class="form-control" id="level">
+            <option value="99">Lv.99</option>
+            <option value="110" selected>Lv.110</option>        
+          </select>
+        </div>
+        <div class="col-6">
+          <select class="form-control" id="super-awoken">
+            <option value="yes" selected>yes</option>
+            <option value="no">no</option>        
+          </select>
+        </div>
+      </div>
+
+      <br />
+
+      <button type="button" class="btn btn-secondary btn-block" onclick="search()">Search</button>
+
+      <br />
+
+      <div id="result">
+        <table id="result-table" class="display" width="100%">
+        </table>
+      </div>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+  </body>
+  
+</html>
