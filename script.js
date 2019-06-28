@@ -1,8 +1,8 @@
-var types = {"0": "神", "1": "ドラゴン", "2": "悪魔", "3": "マシン", "4": "バランス", "5": "攻撃", "6": "体力", "7": "回復"};
-var types_rev = {"神": "0", "ドラゴン": "1", "悪魔": "2", "マシン": "3", "バランス": "4", "攻撃": "5", "体力": "6", "回復": "7"};
-  
+var types = {"0": "ドラゴン", "1": "神", "2": "悪魔", "3": "マシン", "4": "バランス", "5": "攻撃", "6": "体力", "7": "回復", "8": "進化用", "9": "能力覚醒用", "10": "強化合成用", "11": "売却用"};
+var types_rev = {"ドラゴン": "0", "神": "1", "悪魔": "2", "マシン": "3", "バランス": "4", "攻撃": "5", "体力": "6", "回復": "7", "進化用": "8", "能力覚醒用": "9", "強化合成用": "10", "売却用": "11"};
+
 var double_rule = {"fire": "wood", "water": "fire", "wood": "water", "light": "dark", "dark": "light"};
-var half_rule = {"fire": "water", "water": "wood", "wood": "fire", "light": "none", "dark": "none"};
+var half_rule = {"fire": "water", "water": "wood", "wood": "fire", "light": "", "dark": ""};
 
 var chi_to_eng = {"火": "fire", "水": "water", "木": "wood", "光": "light", "暗": "dark"};
 var eng_to_chi = {"fire": "火", "water": "水", "wood": "木", "light": "光", "dark": "暗"};
@@ -15,12 +15,14 @@ function removeOptions(selectbox){
 }
 
 function init(){
+  // initial type selection
   var type1 = document.getElementById("type1");
   for(var t=0;t<Object.keys(types).length;t++){
     var new_option = new Option(types[t],t);
     type1.options.add(new_option);
   }
 
+  // initial orb selection
   var orb = document.getElementById("orb");
   for(var i=4;i<30;i++){
     var new_option = new Option(i,i);
@@ -33,6 +35,13 @@ function init(){
       new_option = new Option("Square", "square");
       orb.options.add(new_option);
     }
+  }
+
+  // initial combo selection
+  var orb = document.getElementById("combo");
+  for(var i=2;i<=20;i++){
+    var new_option = new Option(i,i);
+    orb.options.add(new_option);
   }
 }
 
@@ -80,6 +89,7 @@ function search(){
   var enemy_type = [type1, type2, type3];
   var team_hp = document.getElementById('hp-select').value;
   var orb = document.getElementById('orb').value;
+  var combo = document.getElementById('combo').value;
   var level = document.getElementById('level').value;
   var super_awoken = document.getElementById('super-awoken').value;
 
@@ -112,6 +122,9 @@ function search(){
 
     // basic_attack increase when number of orb increase
     basic_attack *= (1 + (0.25 * orb));
+
+    // basic_attack increase when combo increase
+    basic_attack *= (1 + (0.25 * (combo - 1)));
 
     // double attack or half attack because of property rule
     if(double_rule[chi_to_eng[datas[i].main_property]] == enemy_property){
@@ -149,7 +162,14 @@ function search(){
         basic_attack *= 2.5;
         process["awoken"].push(datas[i].awoken[j]);
       }
-      
+      if(combo >= 7 && datas[i].awoken[j] == "コンボ強化"){
+        basic_attack *= 2;
+        process["awoken"].push(datas[i].awoken[j]);
+      }
+      if(combo >= 10 && datas[i].awoken[j] == "超コンボ強化"){
+        basic_attack *= 5;
+        process["awoken"].push(datas[i].awoken[j]);
+      }
     }
       
     // potential awoken killer
@@ -167,13 +187,24 @@ function search(){
     // super awoken
     flag = false;
     if(super_awoken == "yes" && level == 110){
-      for(var j = 0; j < datas[i].super_awoken.length; j++) {
-        if(enemy_type.includes(types_rev[datas[i].super_awoken[j].replace("キラー", "")])){
-          if(!flag){
-            basic_attack *= 3;
+      if(!flag && combo >= 10){
+        for(var j = 0; j < datas[i].super_awoken.length; j++) {
+          if(datas[i].super_awoken[j] == "超コンボ強化"){
+            basic_attack *= 5;
+            flag = true;
+            process["super_awoken"].push(datas[i].super_awoken[j]);
           }
-          flag = true;
-          process["super_awoken"].push(datas[i].super_awoken[j]);
+        }
+      }
+      if(!flag){
+        for(var j = 0; j < datas[i].super_awoken.length; j++) {
+          if(enemy_type.includes(types_rev[datas[i].super_awoken[j].replace("キラー", "")])){
+            if(!flag){
+              basic_attack *= 3;
+            }
+            flag = true;
+            process["super_awoken"].push(datas[i].super_awoken[j]);
+          }
         }
       }
       if(!flag && shape == "square"){
@@ -188,6 +219,15 @@ function search(){
       if(!flag && team_hp < 50){
         for(var j = 0; j < datas[i].super_awoken.length; j++) {
           if(datas[i].super_awoken[j] == "HP50％以下強化"){
+            basic_attack *= 2;
+            flag = true;
+            process["super_awoken"].push(datas[i].super_awoken[j]);
+          }
+        }
+      }
+      if(!flag && combo >= 7){
+        for(var j = 0; j < datas[i].super_awoken.length; j++) {
+          if(datas[i].super_awoken[j] == "コンボ強化"){
             basic_attack *= 2;
             flag = true;
             process["super_awoken"].push(datas[i].super_awoken[j]);

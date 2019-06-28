@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
   <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142982094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142982094-1');
+    </script>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,8 +32,8 @@
   <body onload="init()">
     <div class="container">
 
-      <h1>Bootstrap grid examples</h1>
-      <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+      <h1>PADRank</h1>
+      <p class="lead">A simple website to find P&D monster with highest attack in specific criteria.</p>
 
       <h3>Property</h3>
       <select class="form-control" id="property">
@@ -35,7 +46,7 @@
       </select>
         
       <h3>Type</h3>
-      <div class="form-row">
+      <div class="row">
         <div class="col-4">
           <select class="form-control" id="type1" onchange="initType2()">
             <option selected value="none">(type1)</option>
@@ -70,28 +81,31 @@
         </div>
       </div>
 
-<!--       <input type="range" class="form-control-range" id="formControlRange">
- -->  <h3>Number of orb</h3>
-      <select class="form-control" id="orb">
-        <option value="3" selected>3</option>
-      </select>
+      <div class="row">
+        <div class="col-6">
+          <h3>Number of orb</h3>
+          <select class="form-control" id="orb">
+            <option value="3" selected>3</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <h3>Combo</h3>
+          <select class="form-control" id="combo">
+            <option value="1" selected>1</option>
+          </select>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-6">
           <h3>Level</h3>
-        </div>
-        <div class="col-6">
-          <h3>Super awoken</h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
           <select class="form-control" id="level">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
         <div class="col-6">
+          <h3>Super awoken</h3>
           <select class="form-control" id="super-awoken">
             <option value="yes" selected>yes</option>
             <option value="no">no</option>        
