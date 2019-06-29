@@ -32,6 +32,9 @@
       
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
     <title>PadRank</title>
@@ -55,17 +58,17 @@
         
       <h3>敵人類型</h3>
       <div class="row">
-        <div class="col-4">
+        <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type1" onchange="initType2()">
             <option selected value="none">(type1)</option>
           </select>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type2" onchange="initType3()">
             <option selected value="none">(type2)</option>
           </select>        
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type3">
             <option selected value="none">(type3)</option>
           </select>    
@@ -74,11 +77,11 @@
 
       <h3>隊伍血量</h3>
       <div class="row" style="align-items: center;">
-        <div class="progress col-10">
+        <div class="progress col-lg-10 col-sm-12">
           <div id="hp-bar" class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <select class="form-control" id="hp-select" onchange="hpChange()">
             <option value="100" selected>100%</option>
             <option value="99">99%</option>
@@ -90,13 +93,13 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
           <h3>消去的珠子數</h3>
           <select class="form-control" id="orb">
             <option value="3" selected>3</option>
           </select>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
           <h3>Combo</h3>
           <select class="form-control" id="combo">
             <option value="1" selected>1</option>
@@ -105,14 +108,14 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
           <h3>寵物等級</h3>
           <select class="form-control" id="level">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
           <h3>超覺醒</h3>
           <select class="form-control" id="super-awoken">
             <option value="yes" selected>有</option>
@@ -128,7 +131,7 @@
       <br />
 
       <div id="result">
-        <table id="result-table" class="display" width="100%">
+        <table id="result-table" class="display nowrap" width="100%">
         </table>
       </div>
       

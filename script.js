@@ -288,7 +288,7 @@ function search(){
                          
   // console.log(results);
     
-  document.getElementById("result").innerHTML = '<table id="result-table" class="display" width="100%"></table>';
+  document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
   var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
   for(var r = 0; r < Math.min(100, results.length); r++) {
@@ -332,7 +332,8 @@ function search(){
     
   $(document).ready(function() {
       $('#result-table').DataTable( {
-          "order": [[ 4, "desc" ]]
+          "order": [[ 4, "desc" ]],
+          "responsive": true
       } );
   } );
   
