@@ -112,6 +112,7 @@ function search(){
   var combo = document.getElementById('combo').value;
   var level = document.getElementById('level').value;
   var plus = document.getElementById('plus').value;
+  var potential_num = document.getElementById('potential-num').value;
   var super_awoken = document.getElementById('super-awoken').value;
 
   var shape = "none";
@@ -202,7 +203,7 @@ function search(){
     for(var j = 0; j < datas[i].potential.length; j++) {
       if(enemy_type.includes(types_rev[datas[i].potential[j].replace("キラー", "")])){
         if(!flag){
-          basic_attack *= 1.5*1.5*1.5;
+          basic_attack *= Math.pow(1.5, potential_num);
         }
         flag = true;
         processes["potential"].push(datas[i].potential[j]);
@@ -324,11 +325,11 @@ function search(){
       table_innerHTML += "</div>";
     }
 
-    if(results[r][4].length != 0){
+    if(results[r][4].length != 0 && potential_num != 0){
       table_innerHTML += "<div>潛在覺醒：";
-      table_innerHTML += '<img src="' + potential_path[results[r][4][0]] + '" width="75px" height="25px">' + '*3 ';
+      table_innerHTML += '<img src="' + potential_path[results[r][4][0]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
       for(var p = 1; p < results[r][4].length; p++){
-        table_innerHTML += 'or <img src="' + potential_path[results[r][4][p]] + '" width="75px" height="25px">' + '*3 ';
+        table_innerHTML += 'or <img src="' + potential_path[results[r][4][p]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
       }
       table_innerHTML += "</div>";
     }
@@ -344,7 +345,7 @@ function search(){
 
     table_innerHTML += "</td>";
     table_innerHTML += "<td>" + results[r][7] + "(Lv." + results[r][6] + ")</td>";
-    table_innerHTML += "<td>" + results[r][8] + "</td></tr>"; 
+    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td></tr>"; 
   }
   table_innerHTML += "</tbody>";
   result_table.innerHTML = table_innerHTML;
