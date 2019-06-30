@@ -36,6 +36,7 @@
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
     <title>PadRank</title>
 
@@ -108,14 +109,21 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <h3>寵物等級</h3>
           <select class="form-control" id="level" onchange="levelChange()">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
+          <h3>攻擊滿加值(+99)</h3>
+          <select class="form-control" id="plus" onchange="plusChange()">
+            <option value="495" selected>是</option>
+            <option value="0">否</option>        
+          </select>
+        </div>
+        <div class="col-lg-4 col-sm-12">
           <h3>超覺醒</h3>
           <select class="form-control" id="super-awoken">
             <option value="yes" selected>有</option>

@@ -93,6 +93,14 @@ function levelChange(){
   }
 }
 
+function plusChange(){
+  var plus = document.getElementById('plus').value;
+
+  if(plus == 0){
+    document.getElementById('super-awoken').selectedIndex  = 1;
+  }
+}
+
 function search(){
   var enemy_property = document.getElementById("property").value;
   var type1 = document.getElementById('type1').value;
@@ -103,9 +111,8 @@ function search(){
   var orb = document.getElementById('orb').value;
   var combo = document.getElementById('combo').value;
   var level = document.getElementById('level').value;
+  var plus = document.getElementById('plus').value;
   var super_awoken = document.getElementById('super-awoken').value;
-
-  console.log(enemy_type);
 
   var shape = "none";
   if(orb == "square"){
@@ -135,6 +142,7 @@ function search(){
       basic_attack = Math.max(datas[i].attack_99, datas[i].attack_110);
       lv = '110';
     }
+    basic_attack += parseInt(plus);
     var origin_attack = basic_attack;
 
     // basic_attack increase when number of orb increase
@@ -293,15 +301,19 @@ function search(){
   results = results.sort(function(a, b){
       return parseFloat(a[8]) < parseFloat(b[8]) ? 1 : -1;
   });
+
+  for (var r = 0; r < results.length; r++){
+    results[r].push(r+1);
+  }
                          
   // console.log(results);
     
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
-  var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
+  var table_innerHTML = "<thead><tr><th></th><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
   for(var r = 0; r < Math.min(100, results.length); r++) {
-    // table_innerHTML += '<tr><td colspan=4>' + JSON.stringify(results[r]) + "</td></tr>";
-    table_innerHTML += '<tr><td><img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
+    table_innerHTML += '<tr><td>' + results[r][9] + '</td>';
+    table_innerHTML += '<td><img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2] + "</td>";
 
     table_innerHTML += "<td>";
@@ -340,7 +352,7 @@ function search(){
     
   $(document).ready(function() {
       $('#result-table').DataTable( {
-          "order": [[ 4, "desc" ]],
+          "order": [[ 5, "desc" ]],
           "responsive": true
       } );
   } );
