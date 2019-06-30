@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script src="datas.js"></script>
-    <script src="script.js"></script>
+    <script src="script_jp.js"></script>
       
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -44,11 +44,11 @@
   <body onload="init()">
     <div class="container">
 
-      <h1>PADRank</h1>
-      <div align="right">中文/<a href="index_jp.html">日本語</a></div>
+        <h1>PADRank</h1>
+        <div align="right"><a href="index.html">中文</a>/日本語</div>
       <!-- <p class="lead">A simple website to find P&D monster with highest attack in specific criteria.</p> -->
 
-      <h3>敵人屬性</h3>
+      <h3>敵の属性</h3>
       <select class="form-control" id="property">
         <option value="none" selected>無</option>
         <option value="fire">火</option>
@@ -58,26 +58,26 @@
         <option value="dark">暗</option>
       </select>
         
-      <h3>敵人類型</h3>
+      <h3>敵のタイプ</h3>
       <div class="row">
         <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type1" onchange="initType2()">
-            <option selected value="none">(type1)</option>
+            <option selected value="none">(タイプ１)</option>
           </select>
         </div>
         <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type2" onchange="initType3()">
-            <option selected value="none">(type2)</option>
+            <option selected value="none">(タイプ２)</option>
           </select>        
         </div>
         <div class="col-lg-4 col-sm-12">
           <select class="form-control" id="type3">
-            <option selected value="none">(type3)</option>
+            <option selected value="none">(タイプ３)</option>
           </select>    
         </div>
       </div>
 
-      <h3>隊伍血量</h3>
+      <h3>パーティのHP</h3>
       <div class="row" style="align-items: center;">
         <div class="progress col-lg-10 col-sm-12">
           <div id="hp-bar" class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
@@ -96,13 +96,13 @@
 
       <div class="row">
         <div class="col-lg-6 col-sm-12">
-          <h3>消去的珠子數</h3>
+          <h3>消したドロップ数</h3>
           <select class="form-control" id="orb">
             <option value="3" selected>3</option>
           </select>
         </div>
         <div class="col-lg-6 col-sm-12">
-          <h3>Combo</h3>
+          <h3>コンボ数</h3>
           <select class="form-control" id="combo">
             <option value="1" selected>1</option>
           </select>
@@ -111,21 +111,21 @@
 
       <div class="row">
         <div class="col-lg-3 col-sm-12">
-          <h3>寵物等級</h3>
+          <h3>レベル</h3>
           <select class="form-control" id="level" onchange="levelChange()">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
         <div class="col-lg-3 col-sm-12">
-          <h3>攻擊滿加值(+99)</h3>
+          <h3>＋ポイント(攻撃+99)</h3>
           <select class="form-control" id="plus" onchange="plusChange()">
-            <option value="495" selected>是</option>
-            <option value="0">否</option>        
+            <option value="495" selected>あり</option>
+            <option value="0">なし</option>        
           </select>
         </div>
         <div class="col-lg-3 col-sm-12">
-          <h3>潛在覺醒數量</h3>
+          <h3>付けた潜在の数</h3>
           <select class="form-control" id="potential-num">
             <option value="3" selected>3</option>
             <option value="2">2</option>        
@@ -134,17 +134,17 @@
           </select>
         </div>
         <div class="col-lg-3 col-sm-12">
-          <h3>超覺醒</h3>
+          <h3>超覚醒</h3>
           <select class="form-control" id="super-awoken">
-            <option value="yes" selected>有</option>
-            <option value="no">無</option>        
+            <option value="yes" selected>あり</option>
+            <option value="no">なし</option>        
           </select>
         </div>
       </div>
 
       <br />
 
-      <button type="button" class="btn btn-secondary btn-block" onclick="search()">Search</button>
+      <button type="button" class="btn btn-secondary btn-block" onclick="search()">検 索</button>
 
       <br />
 
@@ -153,7 +153,7 @@
         </table>
       </div>
       <div align="right">
-          <a href="https://forms.gle/XLGwzZRc5KjT1TmaA">[錯誤回報或建議]</a>
+          <a href="https://forms.gle/SFLVEr7rsutREAs49">[お問い合わせ]</a>
       </div>
       
 

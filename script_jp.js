@@ -311,14 +311,14 @@ function search(){
     
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
-  var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
+  var table_innerHTML = "<thead><tr><th>名前</th><th>属性</th><th></th><th>攻撃力(レベル)</th><th>最終攻撃力</th></tr></thead><tbody>";
   for(var r = 0; r < Math.min(100, results.length); r++) {
     table_innerHTML += '<tr><td>' + results[r][9] + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2] + "</td>";
 
     table_innerHTML += "<td>";
     if(results[r][3].length != 0){
-      table_innerHTML += "<div>覺醒：";
+      table_innerHTML += "<div>覚醒：";
       for(var p = 0; p < results[r][3].length; p++){
         table_innerHTML += '<img src="' + img_path[results[r][3][p]] + '" width="30px" height="30px">' + ' ';
       }
@@ -326,7 +326,7 @@ function search(){
     }
 
     if(results[r][4].length != 0 && potential_num != 0){
-      table_innerHTML += "<div>潛在覺醒：";
+      table_innerHTML += "<div>潜在覚醒：";
       table_innerHTML += '<img src="' + potential_path[results[r][4][0]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
       for(var p = 1; p < results[r][4].length; p++){
         table_innerHTML += 'or <img src="' + potential_path[results[r][4][p]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
@@ -335,7 +335,7 @@ function search(){
     }
 
     if(results[r][5].length != 0){
-      table_innerHTML += "<div>超覺醒：";
+      table_innerHTML += "<div>超覚醒：";
       table_innerHTML += '<img src="' + img_path[results[r][5][0]] + '" width="30px" height="30px"> ';
       for(var p = 1; p < results[r][5].length; p++){
         table_innerHTML += 'or <img src="' + img_path[results[r][5][p]] + '" width="30px" height="30px">';
