@@ -351,7 +351,7 @@ function search(){
     
   $(document).ready(function() {
       $('#result-table').DataTable( {
-          "order": [[ 5, "desc" ]],
+          "order": [[ 4, "desc" ]],
           "responsive": true
       } );
   } );
