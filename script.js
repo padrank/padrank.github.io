@@ -310,10 +310,9 @@ function search(){
     
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
-  var table_innerHTML = "<thead><tr><th></th><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
+  var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
   for(var r = 0; r < Math.min(100, results.length); r++) {
-    table_innerHTML += '<tr><td>' + results[r][9] + '</td>';
-    table_innerHTML += '<td><img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
+    table_innerHTML += '<tr><td>' + results[r][9] + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2] + "</td>";
 
     table_innerHTML += "<td>";
