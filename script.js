@@ -85,6 +85,14 @@ function hpChange(){
   $('#hp-bar').width(select + "%").attr('aria-valuenow', select);
 }
 
+function levelChange(){
+  var level = document.getElementById('level').value;
+
+  if(level == 99){
+    document.getElementById('super-awoken').selectedIndex  = 1;
+  }
+}
+
 function search(){
   var enemy_property = document.getElementById("property").value;
   var type1 = document.getElementById('type1').value;
