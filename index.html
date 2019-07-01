@@ -110,21 +110,30 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <h3>寵物等級</h3>
           <select class="form-control" id="level" onchange="levelChange()">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <h3>攻擊滿加值(+99)</h3>
-          <select class="form-control" id="plus" onchange="plusChange()">
+          <select class="form-control" id="plus" onchange="plusOrMultiChange()">
             <option value="495" selected>是</option>
             <option value="0">否</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
+          <h3>協力</h3>
+          <select class="form-control" id="multi" onchange="plusOrMultiChange()">
+            <option value="yes">是</option>
+            <option value="no" selected>否</option>        
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
           <h3>潛在覺醒數量</h3>
           <select class="form-control" id="potential-num">
             <option value="3" selected>3</option>
@@ -133,7 +142,7 @@
             <option value="0">0</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <h3>超覺醒</h3>
           <select class="form-control" id="super-awoken">
             <option value="yes" selected>有</option>

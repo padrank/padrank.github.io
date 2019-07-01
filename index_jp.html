@@ -110,21 +110,30 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <h3>レベル</h3>
           <select class="form-control" id="level" onchange="levelChange()">
             <option value="99">Lv.99</option>
             <option value="110" selected>Lv.110</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <h3>＋ポイント(攻撃+99)</h3>
-          <select class="form-control" id="plus" onchange="plusChange()">
+          <select class="form-control" id="plus" onchange="plusOrMultiChange()">
             <option value="495" selected>あり</option>
             <option value="0">なし</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
+          <h3>マルチ</h3>
+          <select class="form-control" id="multi" onchange="plusOrMultiChange()">
+            <option value="yes">はい</option>
+            <option value="no" selected>いいえ</option>        
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
           <h3>付けた潜在の数</h3>
           <select class="form-control" id="potential-num">
             <option value="3" selected>3</option>
@@ -133,7 +142,7 @@
             <option value="0">0</option>        
           </select>
         </div>
-        <div class="col-lg-3 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <h3>超覚醒</h3>
           <select class="form-control" id="super-awoken">
             <option value="yes" selected>あり</option>
