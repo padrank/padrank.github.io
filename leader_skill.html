@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142982094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142982094-1');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5335345976103993",
+        enable_page_level_ads: true
+      });
+    </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="leader_skill_datas.js"></script>
+    <script src="leader_skill_script.js"></script>
+      
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <title>PADRank</title>
+
+  </head>
+  <body>
+    <div class="container">
+
+      <h1>PADRank - leader skill</h1>
+      <div align="right">中文/<a href="index_jp.html">日本語</a></div>
+      <div align="right">上次更新: 2019/07/01</div>
+      <!-- <p class="lead">A simple website to find P&D monster with highest attack in specific criteria.</p> -->
+
+      
+      <div class="row">
+        <div class="col-lg-12 col-sm-12">
+          <h3>盤面大小</h3>
+          <select class="form-control" id="board-size">
+            <option value="7x6">7x6</option>
+            <option selected value="6x5">6x5</option>
+            <option value="5x4">5x4</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12">
+          <h3>隊長技能篩選</h3>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="">Option 1
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="">Option 1
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <button type="button" class="btn btn-secondary btn-block" onclick="search()">Search</button>
+
+      <br />
+
+      <div id="result">
+        <table id="result-table" class="display" width="100%">
+        </table>
+      </div>
+      <div align="right">
+          <a href="https://forms.gle/XLGwzZRc5KjT1TmaA">[錯誤回報或建議]</a>
+      </div>
+      
+
+    </div> <!-- /container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+  </body>
+  
+</html>
