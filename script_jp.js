@@ -211,6 +211,10 @@ function search(){
       
     // potential awoken killer
     var flag = false;
+    datas[i].potential.push("進化用キラー");
+    datas[i].potential.push("能力覚醒用キラー");
+    datas[i].potential.push("強化合成用キラー");
+    datas[i].potential.push("売却用キラー");
     for(var j = 0; j < datas[i].potential.length; j++) {
       if(enemy_type.includes(types_rev[datas[i].potential[j].replace("キラー", "")])){
         if(!flag){
@@ -220,6 +224,10 @@ function search(){
         processes["potential"].push(datas[i].potential[j]);
       }
     }
+    datas[i].potential.pop();
+    datas[i].potential.pop();
+    datas[i].potential.pop();
+    datas[i].potential.pop();
       
     // super awoken
     flag = false;
