@@ -46,7 +46,7 @@
 
         <h1>PADRank</h1>
         <div align="right"><a href="index.html">中文</a>/日本語</div>
-        <div align="right">最終更新: 2019/07/01</div>
+        <div align="right">最終更新: 2019/07/03</div>
 
       <!-- <p class="lead">A simple website to find P&D monster with highest attack in specific criteria.</p> -->
 
@@ -97,10 +97,17 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="orb-div">
           <h3>消したドロップ数</h3>
-          <select class="form-control" id="orb">
+          <select class="form-control" id="orb" onchange="orbChange()">
             <option value="3" selected>3</option>
+          </select>
+        </div>
+        <div class="col-lg-3 col-sm-6 d-none" id="square-promise-div">
+          <h3>ダメージ無効貫通</h3>
+          <select class="form-control" id="square-promise">
+            <option value="yes">あり</option>
+            <option value="no" selected>なし</option> 
           </select>
         </div>
         <div class="col-lg-6 col-sm-12">

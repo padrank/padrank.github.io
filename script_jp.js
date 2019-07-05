@@ -93,6 +93,33 @@ function levelChange(){
   }
 }
 
+function orbChange(){
+  var orb = document.getElementById('orb').value;
+
+  if(orb == 'square'){
+    document.getElementById('square-promise-div').classList.remove('d-none');
+
+    document.getElementById('orb-div').classList.remove('col-lg-6');
+    document.getElementById('orb-div').classList.remove('col-sm-12');
+
+    document.getElementById('orb-div').classList.add('col-lg-3');
+    document.getElementById('orb-div').classList.add('col-sm-6');
+
+    document.getElementById('square-promise').selectedIndex = 0;
+  }
+  else{
+    document.getElementById('square-promise-div').classList.add('d-none');
+
+    document.getElementById('orb-div').classList.remove('col-lg-3');
+    document.getElementById('orb-div').classList.remove('col-sm-6');
+
+    document.getElementById('orb-div').classList.add('col-lg-6');
+    document.getElementById('orb-div').classList.add('col-sm-12');
+
+    document.getElementById('square-promise').selectedIndex = 1; 
+  }
+}
+
 function plusOrMultiChange(){
   var plus = document.getElementById('plus').value;
   var multi = document.getElementById('multi').value;
@@ -115,6 +142,7 @@ function search(){
   var enemy_type = [type1, type2, type3];
   var team_hp = document.getElementById('hp-select').value;
   var orb = document.getElementById('orb').value;
+  var square_promise = document.getElementById('square-promise').value;
   var combo = document.getElementById('combo').value;
   var level = document.getElementById('level').value;
   var plus = document.getElementById('plus').value;
@@ -321,18 +349,19 @@ function search(){
   results = results.sort(function(a, b){
       return parseFloat(a[8]) < parseFloat(b[8]) ? 1 : -1;
   });
-
-  for (var r = 0; r < results.length; r++){
-    results[r].push(r+1);
-  }
                          
   // console.log(results);
     
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
   var table_innerHTML = "<thead><tr><th>名前</th><th>属性</th><th></th><th>攻撃力(レベル)</th><th>最終攻撃力</th></tr></thead><tbody>";
+  var rank = 1;
   for(var r = 0; r < Math.min(100, results.length); r++) {
-    table_innerHTML += '<tr><td>' + results[r][9] + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
+    if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
+      continue;
+    }
+
+    table_innerHTML += '<tr><td>' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2] + "</td>";
 
     table_innerHTML += "<td>";
@@ -365,6 +394,8 @@ function search(){
     table_innerHTML += "</td>";
     table_innerHTML += "<td>" + results[r][7] + "(Lv." + results[r][6] + ")</td>";
     table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td></tr>"; 
+
+    rank += 1;
   }
   table_innerHTML += "</tbody>";
   result_table.innerHTML = table_innerHTML;

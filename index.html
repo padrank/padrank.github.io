@@ -46,7 +46,7 @@
 
       <h1>PADRank</h1>
       <div align="right">中文/<a href="index_jp.html">日本語</a></div>
-      <div align="right">上次更新: 2019/07/01</div>
+      <div align="right">上次更新: 2019/07/03</div>
       <!-- <p class="lead">A simple website to find P&D monster with highest attack in specific criteria.</p> -->
 
       <h3>敵人屬性</h3>
@@ -96,10 +96,17 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="orb-div">
           <h3>消去的珠子數</h3>
-          <select class="form-control" id="orb">
+          <select class="form-control" id="orb" onchange="orbChange()">
             <option value="3" selected>3</option>
+          </select>
+        </div>
+        <div class="col-lg-3 col-sm-6 d-none" id="square-promise-div">
+          <h3>保證貫通</h3>
+          <select class="form-control" id="square-promise">
+            <option value="yes">是</option>
+            <option value="no" selected>否</option> 
           </select>
         </div>
         <div class="col-lg-6 col-sm-12">
