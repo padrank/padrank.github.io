@@ -10,6 +10,8 @@ var eng_to_chi = {"fire": "火", "water": "水", "wood": "木", "light": "光", 
 var img_path = {"火": "img/top01.png", "水": "img/top02.png", "木": "img/top03.png", "光": "img/top04.png", "暗": "img/top05.png", "2体攻撃": "img/k27.png","ドラゴンキラー": "img/k31.png", "神キラー": "img/k32.png", "悪魔キラー": "img/k33.png", "マシンキラー": "img/k34.png", "バランスキラー": "img/k35.png", "攻撃キラー": "img/k36.png", "体力キラー": "img/k37.png", "回復キラー": "img/k38.png", "進化用キラー": "img/k39.png", "能力覚醒用キラー": "img/k40.png", "強化合成用キラー": "img/k41.png", "売却用キラー": "img/k42.png", "コンボ強化": "img/k43.png", "ダメージ無効貫通": "img/k49.png", "HP80％以上強化": "img/k57.png", "HP50％以下強化": "img/k58.png", "L字消し攻撃": "img/k60.png", "超コンボ強化": "img/k61.png", "マルチブースト": "img/k30.png"};
 var potential_path = {"ドラゴンキラー": "img/sk03.png", "神キラー": "img/sk02.png", "悪魔キラー": "img/sk04.png", "マシンキラー": "img/sk05.png", "バランスキラー": "img/sk06.png", "攻撃キラー": "img/sk07.png", "体力キラー": "img/sk08.png", "回復キラー": "img/sk09.png", "進化用キラー": "img/sk10.jpg", "能力覚醒用キラー": "img/sk11.jpg", "強化合成用キラー": "img/sk12.jpg", "売却用キラー": "img/sk13.jpg"}
 
+var property_filter = {"fire": true, "water": true, "wood": true, "light": true, "dark": true};
+
 function removeOptions(selectbox){
   var i;
   for(i = selectbox.options.length - 1 ; i > 0 ; i--){
@@ -79,6 +81,17 @@ function initType3(){
   }
 }
 
+function monsterPropertyClick(self){
+  if(document.getElementById(self.id).classList.contains("table-dark")){
+    document.getElementById(self.id).classList.remove("table-dark");
+    property_filter[self.id] = false;
+  }
+  else{
+    document.getElementById(self.id).classList.add("table-dark");
+    property_filter[self.id] = true;
+  }
+}
+
 function hpChange(){
   var bar = document.getElementById('hp-bar');
   var select = document.getElementById('hp-select').value;
@@ -116,7 +129,7 @@ function orbChange(){
     document.getElementById('orb-div').classList.add('col-lg-6');
     document.getElementById('orb-div').classList.add('col-sm-12');
 
-    document.getElementById('square-promise').selectedIndex = 1; 
+    document.getElementById('square-promise').selectedIndex = 1;
   }
 }
 
@@ -164,13 +177,13 @@ function search(){
   }
 
   var results = [];
-    
+
   for (var i = 0; i < datas.length; i++) {
     var id = datas[i].name.substr(3, datas[i].name.indexOf("-") - 4);
     var image_url = "https://gamewith.akamaized.net/article_tools/pad/gacha/" + id + ".png";
-      
+
     var processes = {"awoken": [], "potential": [], "super_awoken": [], "property": "normal"};
-      
+
     // choose lv99 attack or lv110 attack
     var basic_attack = datas[i].attack_99;
     var lv = '99';
@@ -236,7 +249,7 @@ function search(){
         processes["awoken"].push(datas[i].awoken[j]);
       }
     }
-      
+
     // potential awoken killer
     var flag = false;
     datas[i].potential.push("進化用キラー");
@@ -256,7 +269,7 @@ function search(){
     datas[i].potential.pop();
     datas[i].potential.pop();
     datas[i].potential.pop();
-      
+
     // super awoken
     flag = false;
     if(super_awoken == "yes" && level == 110){
@@ -336,28 +349,31 @@ function search(){
       }
     }
 
-    
+
     // result = {"name": datas[i].name, "main_property": datas[i].main_property, "processes": processes, "attack": basic_attack};
-       
-    result = [datas[i].name, image_url, datas[i].main_property, 
-              processes["awoken"], processes["potential"], processes["super_awoken"], 
+
+    result = [datas[i].name, image_url, datas[i].main_property,
+              processes["awoken"], processes["potential"], processes["super_awoken"],
               lv, origin_attack, basic_attack];
     results.push(result);
 
   }
-  
+
   results = results.sort(function(a, b){
       return parseFloat(a[8]) < parseFloat(b[8]) ? 1 : -1;
   });
-                         
+
   // console.log(results);
-    
+
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
   var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
   var rank = 1;
   for(var r = 0; r < Math.min(100, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
+      continue;
+    }
+    if(!property_filter[chi_to_eng[[results[r][2]]]]) {
       continue;
     }
 
@@ -393,22 +409,19 @@ function search(){
 
     table_innerHTML += "</td>";
     table_innerHTML += "<td>" + results[r][7] + "(Lv." + results[r][6] + ")</td>";
-    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td></tr>"; 
+    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td></tr>";
 
     rank += 1;
   }
   table_innerHTML += "</tbody>";
   result_table.innerHTML = table_innerHTML;
-    
+
   $(document).ready(function() {
       $('#result-table').DataTable( {
           "order": [[ 4, "desc" ]],
           "responsive": true
       } );
   } );
-  
+
 
 }
-
-
-    
