@@ -92,6 +92,15 @@ function monsterPropertyClick(self){
   }
 }
 
+function updateClick(){
+  if(document.getElementById("update-content").classList.contains("d-none")){
+    document.getElementById("update-content").classList.remove("d-none");
+  }
+  else{
+    document.getElementById("update-content").classList.add("d-none");
+  }
+}
+
 function hpChange(){
   var bar = document.getElementById('hp-bar');
   var select = document.getElementById('hp-select').value;
