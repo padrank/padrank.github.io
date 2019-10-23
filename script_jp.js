@@ -7,7 +7,84 @@ var half_rule = {"fire": "water", "water": "wood", "wood": "fire", "light": "", 
 var chi_to_eng = {"火": "fire", "水": "water", "木": "wood", "光": "light", "暗": "dark"};
 var eng_to_chi = {"fire": "火", "water": "水", "wood": "木", "light": "光", "dark": "暗"};
 
-var img_path = {"火": "img/top01.png", "水": "img/top02.png", "木": "img/top03.png", "光": "img/top04.png", "暗": "img/top05.png", "2体攻撃": "img/k27.png","ドラゴンキラー": "img/k31.png", "神キラー": "img/k32.png", "悪魔キラー": "img/k33.png", "マシンキラー": "img/k34.png", "バランスキラー": "img/k35.png", "攻撃キラー": "img/k36.png", "体力キラー": "img/k37.png", "回復キラー": "img/k38.png", "進化用キラー": "img/k39.png", "能力覚醒用キラー": "img/k40.png", "強化合成用キラー": "img/k41.png", "売却用キラー": "img/k42.png", "コンボ強化": "img/k43.png", "ダメージ無効貫通": "img/k49.png", "HP80％以上強化": "img/k57.png", "HP50％以下強化": "img/k58.png", "L字消し攻撃": "img/k60.png", "超コンボ強化": "img/k61.png", "マルチブースト": "img/k30.png"};
+var img_path = {
+  "火": "img/top01.png",
+  "水": "img/top02.png",
+  "木": "img/top03.png",
+  "光": "img/top04.png",
+  "暗": "img/top05.png",
+  "HP強化": "img/k1.png",
+  "攻撃強化": "img/k2.png",
+  "回復強化": "img/k3.png",
+  "火ダメージ軽減": "img/k4.png",
+  "水ダメージ軽減": "img/k5.png",
+  "木ダメージ軽減": "img/k6.png",
+  "光ダメージ軽減": "img/k7.png",
+  "闇ダメージ軽減": "img/k8.png",
+  "自動回復": "img/k9.png",
+  "バインド耐性": "img/k10.png",
+  "暗闇耐性": "img/k11.png",
+  "お邪魔耐性": "img/k12.png",
+  "毒耐性": "img/k13.png",
+  "火ドロップ強化": "img/k14.png",
+  "水ドロップ強化": "img/k15.png",
+  "水ドロップ強化": "img/k16.png",
+  "光ドロップ強化": "img/k17.png",
+  "闇ドロップ強化": "img/k18.png",
+  "操作時間延長": "img/k19.png",
+  "バインド回復": "img/k20.png",
+  "スキルブースト": "img/k21.png",
+  "火属性強化": "img/k22.png",
+  "水属性強化": "img/k23.png",
+  "木属性強化": "img/k24.png",
+  "光属性強化": "img/k25.png",
+  "闇属性強化": "img/k26.png",
+  "2体攻撃": "img/k27.png",
+  "封印耐性": "img/k28.png",
+  "回復ドロップ強化": "img/k29.png",
+  "マルチブースト": "img/k30.png",
+  "ドラゴンキラー": "img/k31.png",
+  "神キラー": "img/k32.png",
+  "悪魔キラー": "img/k33.png",
+  "マシンキラー": "img/k34.png",
+  "バランスキラー": "img/k35.png",
+  "攻撃キラー": "img/k36.png",
+  "体力キラー": "img/k37.png",
+  "回復キラー": "img/k38.png",
+  "進化用キラー": "img/k39.png",
+  "能力覚醒用キラー": "img/k40.png",
+  "強化合成用キラー": "img/k41.png",
+  "売却用キラー": "img/k42.png",
+  "コンボ強化": "img/k43.png",
+  "ガードブレイク": "img/k44.png",
+  "追加攻撃": "img/k46.png",
+  "チームHP強化": "img/k47.png",
+  "チーム回復強化": "img/k48.png",
+  "ダメージ無効貫通": "img/k49.png",
+  "超追加攻撃": "img/k50.png",
+  "スキルチャージ": "img/k51.png",
+  "バインド耐性＋": "img/k52.png",
+  "操作時間延長＋": "img/k53.png",
+  "雲耐性": "img/k54.png",
+  "操作不可耐性": "img/k55.png",
+  "スキルブースト＋": "img/k56.png",
+  "HP80％以上強化": "img/k57.png",
+  "HP50％以下強化": "img/k58.png",
+  "回復L字消し": "img/k59.png",
+  "L字消し攻撃": "img/k60.png",
+  "超コンボ強化": "img/k61.png",
+  "暗闇耐性＋": "img/k68.png",
+  "お邪魔耐性＋": "img/k69.png",
+  "毒耐性＋": "img/k70.png",
+  "お邪魔ドロップの加護": "img/k71.png",
+  "毒ドロップの加護": "img/k72.png",
+  "スキルボイス": "img/k80.png",
+  "ダンジョンボーナス": "img/k81.png",
+  "コンボドロップ": "img/k82.png",
+  "HP弱化": "img/k83.png",
+  "攻撃弱化": "img/k84.png",
+  "回復弱化": "img/k85.png",
+  };
 var potential_path = {"ドラゴンキラー": "img/sk03.png", "神キラー": "img/sk02.png", "悪魔キラー": "img/sk04.png", "マシンキラー": "img/sk05.png", "バランスキラー": "img/sk06.png", "攻撃キラー": "img/sk07.png", "体力キラー": "img/sk08.png", "回復キラー": "img/sk09.png", "進化用キラー": "img/sk10.jpg", "能力覚醒用キラー": "img/sk11.jpg", "強化合成用キラー": "img/sk12.jpg", "売却用キラー": "img/sk13.jpg"}
 
 var property_filter = {"fire": true, "water": true, "wood": true, "light": true, "dark": true};
@@ -363,7 +440,7 @@ function search(){
 
     result = [datas[i].name, image_url, datas[i].main_property,
               processes["awoken"], processes["potential"], processes["super_awoken"],
-              lv, origin_attack, basic_attack];
+              lv, origin_attack, basic_attack, datas[i]];
     results.push(result);
 
   }
@@ -386,7 +463,21 @@ function search(){
       continue;
     }
 
-    table_innerHTML += '<tr><td>' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</td>";
+    table_innerHTML += '<tr><td><div>' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div><div>";
+
+    for(var a = 0; a < results[r][9].awoken.length; a++){
+      table_innerHTML += '<img src="' + img_path[results[r][9].awoken[a]] + '" width="20px" height="20px">';
+    }
+
+    if (results[r][9].super_awoken.length > 0) {
+      table_innerHTML += '  超覚醒: ';
+      for(var a = 0; a < results[r][9].super_awoken.length; a++){
+        table_innerHTML += '<img src="' + img_path[results[r][9].super_awoken[a]] + '" width="20px" height="20px">';
+      }
+    }
+
+    table_innerHTML += '</td>'
+
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2] + "</td>";
 
     table_innerHTML += "<td>";
