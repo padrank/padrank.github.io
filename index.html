@@ -38,6 +38,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
     <title>PADRank</title>
 
   </head>
@@ -178,6 +181,23 @@
               <td class="text-center table-secondary table-dark" onclick="monsterPropertyClick(this)" id="dark"><img src="img/top05.png" width="20px" height="20px">暗</td>
             </tr>
           </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12">
+           <!-- <button type="button" class="btn btn-outline-dark" onclick="toggleFilterTable(this)">▸</button> -->
+          <h3>寵物覺醒篩選
+            <input type="checkbox" data-toggle="toggle" data-onstyle="primary" id="toggle-filter" onchange="toggleFilterTable()">
+          </h3>
+          <h6 id="toggle-super-awoken-filter" style="display: none">篩選包含超覺醒
+            <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" id="super-awoken-filter">
+          </h6>
+
+        </div>
+        <div class="col-lg-12 col-sm-12">
+          <table class="table table-bordered" id="awoken-filter-table" style="display: none">
+          </table>
+
         </div>
       </div>
 

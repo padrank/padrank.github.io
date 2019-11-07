@@ -28,7 +28,7 @@ var img_path = {
   "毒耐性": "img/k13.png",
   "火ドロップ強化": "img/k14.png",
   "水ドロップ強化": "img/k15.png",
-  "水ドロップ強化": "img/k16.png",
+  "木ドロップ強化": "img/k16.png",
   "光ドロップ強化": "img/k17.png",
   "闇ドロップ強化": "img/k18.png",
   "操作時間延長": "img/k19.png",
@@ -84,8 +84,113 @@ var img_path = {
   "HP弱化": "img/k83.png",
   "攻撃弱化": "img/k84.png",
   "回復弱化": "img/k85.png",
+  "覚醒アシスト": "img/assist.png",
   };
-var potential_path = {"ドラゴンキラー": "img/sk03.png", "神キラー": "img/sk02.png", "悪魔キラー": "img/sk04.png", "マシンキラー": "img/sk05.png", "バランスキラー": "img/sk06.png", "攻撃キラー": "img/sk07.png", "体力キラー": "img/sk08.png", "回復キラー": "img/sk09.png", "進化用キラー": "img/sk10.jpg", "能力覚醒用キラー": "img/sk11.jpg", "強化合成用キラー": "img/sk12.jpg", "売却用キラー": "img/sk13.jpg"}
+var potential_path = {
+  "ドラゴンキラー": "img/sk03.png",
+  "神キラー": "img/sk02.png",
+  "悪魔キラー": "img/sk04.png",
+  "マシンキラー": "img/sk05.png",
+  "バランスキラー": "img/sk06.png",
+  "攻撃キラー": "img/sk07.png",
+  "体力キラー": "img/sk08.png",
+  "回復キラー": "img/sk09.png",
+  "進化用キラー": "img/sk10.jpg",
+  "能力覚醒用キラー": "img/sk11.jpg",
+  "強化合成用キラー": "img/sk12.jpg",
+  "売却用キラー": "img/sk13.jpg"
+};
+
+var awoken_list = [
+  "スキルブースト",
+  "封印耐性",
+  "操作時間延長",
+  "コンボ強化",
+  "超コンボ強化",
+
+  "2体攻撃",
+  "ダメージ無効貫通",
+  "L字消し攻撃",
+  "HP80％以上強化",
+  "HP50％以下強化",
+
+  "ガードブレイク",
+  "スキルチャージ",
+  "コンボドロップ",
+  "追加攻撃",
+  "超追加攻撃",
+
+  "火ダメージ軽減",
+  "水ダメージ軽減",
+  "木ダメージ軽減",
+  "光ダメージ軽減",
+  "闇ダメージ軽減",
+
+  "火属性強化",
+  "水属性強化",
+  "木属性強化",
+  "光属性強化",
+  "闇属性強化",
+
+  "火ドロップ強化",
+  "水ドロップ強化",
+  "木ドロップ強化",
+  "光ドロップ強化",
+  "闇ドロップ強化",
+
+  "回復ドロップ強化",
+  "自動回復",
+  "バインド回復",
+  "回復L字消し",
+  "バインド耐性",
+
+  "HP強化",
+  "攻撃強化",
+  "回復強化",
+  "チームHP強化",
+  "チーム回復強化",
+
+  "ドラゴンキラー",
+  "神キラー",
+  "悪魔キラー",
+  "マシンキラー",
+  "バランスキラー",
+
+  "攻撃キラー",
+  "体力キラー",
+  "回復キラー",
+  "進化用キラー",
+  "能力覚醒用キラー",
+
+  "強化合成用キラー",
+  "売却用キラー",
+  "マルチブースト",
+  "お邪魔ドロップの加護",
+  "毒ドロップの加護",
+
+  "暗闇耐性",
+  "お邪魔耐性",
+  "毒耐性",
+  "雲耐性",
+  "操作不可耐性",
+
+  "スキルボイス",
+  "ダンジョンボーナス",
+  "HP弱化",
+  "攻撃弱化",
+  "回復弱化",
+
+  "覚醒アシスト",
+]
+
+var advanced_awoken = {
+  'スキルブースト＋': ['スキルブースト', 2],
+  '操作時間延長＋': ['操作時間延長', 2],
+  'バインド耐性＋': ['バインド耐性', 2],
+  '暗闇耐性＋': ['暗闇耐性', 5],
+  'お邪魔耐性＋': ['お邪魔耐性', 5],
+  '毒耐性＋': ['毒耐性', 5],
+}
 
 var property_filter = {"fire": true, "water": true, "wood": true, "light": true, "dark": true};
 
@@ -121,10 +226,27 @@ function init(){
   }
 
   // initial combo selection
-  var orb = document.getElementById("combo");
+  var combo = document.getElementById("combo");
   for(var i=2;i<=20;i++){
     var new_option = new Option(i,i);
-    orb.options.add(new_option);
+    combo.options.add(new_option);
+  }
+
+  // init filter_table
+  var awoken_filter_table = document.getElementById("awoken-filter-table");
+
+  var cell_per_row = 5
+  var cell_cnt = 0
+
+  for (var item in awoken_list){
+    if(cell_cnt % cell_per_row == 0){
+      var row = awoken_filter_table.insertRow(-1);
+    }
+    var cell = row.insertCell(-1);
+    cell.className = "text-center";
+    cell.id = "td-" + awoken_list[item];
+    cell.innerHTML = '<img src="' + img_path[awoken_list[item]] + '"/><select class="form-control" onchange="awokenFilterChange(this.id)" style="padding: 0" id=' + awoken_list[item] +'><option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>';
+    cell_cnt += 1;
   }
 }
 
@@ -166,6 +288,28 @@ function monsterPropertyClick(self){
   else{
     document.getElementById(self.id).classList.add("table-dark");
     property_filter[self.id] = true;
+  }
+}
+
+function toggleFilterTable(){
+
+  if(document.getElementById('awoken-filter-table').style.display == "none"){
+    document.getElementById('awoken-filter-table').style.display = "table";
+    document.getElementById('toggle-super-awoken-filter').style.display = "block";
+
+  }
+  else{
+    document.getElementById('awoken-filter-table').style.display = "none";
+    document.getElementById('toggle-super-awoken-filter').style.display = "none";
+  }
+}
+
+function awokenFilterChange(id) {
+  if (document.getElementById(id).value === '0') {
+    document.getElementById('td-' + id).classList.remove("table-dark");
+  }
+  else {
+    document.getElementById('td-' + id).classList.add("table-dark");
   }
 }
 
@@ -233,6 +377,53 @@ function plusOrMultiChange(){
   }
 }
 
+function applyAwokenFilter(data, awoken_filter){
+
+  var tmp = {};
+  for (var awoken in data.awoken){
+
+    if (advanced_awoken[data.awoken[awoken]] != undefined) {
+      if (tmp[advanced_awoken[data.awoken[awoken]][0]] === undefined) {
+        tmp[advanced_awoken[data.awoken[awoken]][0]] = advanced_awoken[data.awoken[awoken]][1];
+      }
+      else {
+        tmp[advanced_awoken[data.awoken[awoken]][0]] += advanced_awoken[data.awoken[awoken]][1];
+      }
+    }
+
+    if (tmp[data.awoken[awoken]] === undefined) {
+      tmp[data.awoken[awoken]] = 1;
+    }
+    else {
+      tmp[data.awoken[awoken]] += 1;
+    }
+  }
+  if (document.getElementById('super-awoken-filter').checked) {
+    for (var super_awoken in data.super_awoken){
+      if (tmp[data.super_awoken[super_awoken]] === undefined) {
+        tmp[data.super_awoken[super_awoken]] = 1;
+      }
+      else {
+        tmp[data.super_awoken[super_awoken]] += 1;
+      }
+    }
+  }
+
+  for (var key in awoken_filter) {
+    if (awoken_filter[key] === 0){
+      continue;
+    }
+    if (tmp[key] === undefined) {
+      return false;
+    }
+    if (awoken_filter[key] > tmp[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function search(){
   var enemy_property = document.getElementById("property").value;
   var type1 = document.getElementById('type1').value;
@@ -248,6 +439,11 @@ function search(){
   var multi = document.getElementById('multi').value;
   var potential_num = document.getElementById('potential-num').value;
   var super_awoken = document.getElementById('super-awoken').value;
+  var awoken_filter = {};
+
+  for (var item in awoken_list){
+    awoken_filter[awoken_list[item]] = parseInt(document.getElementById(awoken_list[item]).value);
+  }
 
   var shape = "none";
   if(orb == "square"){
@@ -438,11 +634,20 @@ function search(){
 
     // result = {"name": datas[i].name, "main_property": datas[i].main_property, "processes": processes, "attack": basic_attack};
 
-    result = [datas[i].name, image_url, datas[i].main_property,
-              processes["awoken"], processes["potential"], processes["super_awoken"],
-              lv, origin_attack, basic_attack, datas[i]];
-    results.push(result);
-
+    if (document.getElementById('toggle-filter').checked) {
+      if (applyAwokenFilter(datas[i], awoken_filter)) {
+        result = [datas[i].name, image_url, datas[i].main_property,
+                  processes["awoken"], processes["potential"], processes["super_awoken"],
+                  lv, origin_attack, basic_attack, datas[i]];
+        results.push(result);
+      }
+    }
+    else{
+      result = [datas[i].name, image_url, datas[i].main_property,
+                processes["awoken"], processes["potential"], processes["super_awoken"],
+                lv, origin_attack, basic_attack, datas[i]];
+      results.push(result);
+    }
   }
 
   results = results.sort(function(a, b){
