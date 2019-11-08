@@ -425,6 +425,7 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
     // ブロックを走査して消えるもの一覧を取得。
     try{
 
+      var hasBomb = false;
       var checkBalls = parent.balls.slice(parent.hNum * parent.vNum / 2, parent.hNum * parent.vNum);
       var deleteLists = createDeleteList(checkBalls, parent.hNum, parent.vNum / 2);
 
@@ -462,9 +463,8 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
           }
         }
       }
-      console.log(bombDeleteLists);
-      console.log(bombList);
       for(var key in bombList){
+        hasBomb = true
         var nn = 30 + bombList[key][0] + bombList[key][1] * parent.hNum;
         if (bombDeleteLists.indexOf(nn - 30) != -1) {
           continue;
@@ -479,7 +479,7 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
       var deleteLists = createDeleteList(checkBalls, parent.hNum, parent.vNum / 2);
       // console.log("deleteLists.length = " + deleteLists.length + "\n");
       // 何も消せるものがなければWAITINGに
-      if(deleteLists.length == 0){
+      if(deleteLists.length == 0 && !hasBomb){
         self.mode = Mode.WAITING;
         self.modeFrameCount = 0;
         if(self.deleteFinished){
