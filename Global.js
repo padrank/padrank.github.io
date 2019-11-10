@@ -121,7 +121,7 @@ function createDeleteList(blocks, hNum, vNum){
   };
   try{
     var deleteBlocksList = new Array();
-    
+
     // 縦方向でつながっているものをすべて取得
     (function(){
       for(var x = 0 ; x < hNum ; ++ x){
@@ -362,6 +362,7 @@ function parseRouteInfo(recordInfoString){
 }
 // Todo! Start,Goalの文字も表示する。
 function drawRoute(canvas, routeInfos){
+  return ;
   var ctx = canvas.getContext('2d');
   for(var ri = 0 ; ri < routeInfos.length ; ++ ri){
     var routeInfo = routeInfos[ri];

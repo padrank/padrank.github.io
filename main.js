@@ -8,7 +8,9 @@ var fieldScene = null;
 var ballSelectScene = null;
 var sceneManagerField = null;
 var sceneManagerBallSelect = null;
-function init(){
+var SIZE_X = 5;
+var SIZE_Y = 6;
+function init(first){
   // Todo! テスト
   // var canvas = document.getElementById("fieldCanvas");
   // var routeInfo = new RouteInfo();
@@ -28,21 +30,40 @@ function init(){
   var layout = null;
   var route = null;
   var ctwMode = null;
-  for(var i = 0 ; i < pair.length ; ++ i){
-    var keyAndValue = pair[i].split('=');
-    if(keyAndValue[0] == "layout"){
-      layout = keyAndValue[1];
-    }
-    else if(keyAndValue[0] == "route"){
-      route = keyAndValue[1];
-    }
-    else if(keyAndValue[0] == "date"){
-      date = keyAndValue[1];
-    }
-    else if(keyAndValue[0] == "ctwMode"){
-      ctwMode = keyAndValue[1];
+  if (first) {
+    for(var i = 0 ; i < pair.length ; ++ i){
+      var keyAndValue = pair[i].split('=');
+      if(keyAndValue[0] == "layout"){
+        layout = keyAndValue[1];
+      }
+      else if(keyAndValue[0] == "route"){
+        route = keyAndValue[1];
+      }
+      else if(keyAndValue[0] == "date"){
+        date = keyAndValue[1];
+      }
+      else if(keyAndValue[0] == "ctwMode"){
+        ctwMode = keyAndValue[1];
+      }
+      else if (keyAndValue[0] == "sizeX"){
+        SIZE_X = keyAndValue[1];
+      }
+      else if (keyAndValue[0] == "sizeY"){
+        SIZE_Y = keyAndValue[1];
+      }
     }
   }
+
+  var btn1 = document.getElementById("button5x4");
+  btn1.style.backgroundColor = "#FFF";
+  var btn2 = document.getElementById("button6x5");
+  btn2.style.backgroundColor = "#FFF";
+  var btn3 = document.getElementById("button7x6");
+  btn3.style.backgroundColor = "#FFF";
+
+  var btnBoardSizeId = "button" + SIZE_Y.toString() + "x" + SIZE_X.toString();
+  document.getElementById(btnBoardSizeId).style.backgroundColor = "#AFA";
+
   // 画像ファイルが指定されたときの処理
   //
   // var inputFile = document.getElementById("inputFile");
@@ -63,21 +84,27 @@ function init(){
     document.getElementById("buttonEditMode").style.width = "102px";
     document.getElementById("buttonRecordMode").style.width = "102px";
     document.getElementById("buttonPlayMode").style.width = "102px";
+    document.getElementById("button5x4").style.width = "102px";
+    document.getElementById("button6x5").style.width = "102px";
+    document.getElementById("button7x6").style.width = "102px";
     document.getElementById("hr").style.width = "320px";
   }else{
     document.getElementById("buttonEditMode").style.width = "126px";
     document.getElementById("buttonRecordMode").style.width = "126px";
     document.getElementById("buttonPlayMode").style.width = "126px";
+    document.getElementById("button5x4").style.width = "126px";
+    document.getElementById("button6x5").style.width = "126px";
+    document.getElementById("button7x6").style.width = "126px";
     document.getElementById("hr").style.width = "384px";
   }
-  document.getElementById("fieldCanvas").width = BALL_SIZE * 6;
-  document.getElementById("fieldCanvas").height = BALL_SIZE * 5;
+  document.getElementById("fieldCanvas").width = BALL_SIZE * SIZE_Y;
+  document.getElementById("fieldCanvas").height = BALL_SIZE * SIZE_X;
   document.getElementById("dropsCanvas").width = BALL_SIZE * 6;
   document.getElementById("dropsCanvas").height = BALL_SIZE * 2;
   // フィールド
   sceneManagerField = new SceneManager("fieldCanvas", touchDevice);
   sceneManagerField.startInterval(false);
-  fieldScene = new FieldScene("fieldCanvas");
+  fieldScene = new FieldScene("fieldCanvas", SIZE_X, SIZE_Y);
   sceneManagerField.changeScene(fieldScene);
   // ドロップ選択
   sceneManagerBallSelect = new SceneManager("dropsCanvas", touchDevice);
@@ -207,6 +234,14 @@ function setMode(mode){
     alert(e);
   }
 }
+function setBoardSize(sizeX, sizeY) {
+
+  SIZE_X = sizeX;
+  SIZE_Y = sizeY;
+  document.getElementById('canvasDiv').innerHTML = "";
+  document.getElementById('canvasDiv').innerHTML = '<canvas id="fieldCanvas" style="background-color:#888888;" width="384" height="320"></canvas><br />';
+  init(false);
+}
 function replaceRandom(){
   // ランダム配置して
   fieldScene.reset();
@@ -223,13 +258,13 @@ function replaceRandom(){
 }
 function saveLayout(){
   fieldScene.saveLayout();
-  alert("配置を保存しました");
+  alert("配置已儲存");
 }
 function loadLayout(){
   if(fieldScene.lastLayout){
     fieldScene.reloadByLayout(fieldScene.lastLayout);
   }else{
-    alert("保存された配置がありません");
+    alert("沒有已儲存的配置可以讀取");
   }
 }
 function resetMove(){
@@ -333,7 +368,7 @@ function shareImage(){
 }
 function shareWeb(){
   // パラメータ作成
-  var param = "?layout=" + fieldScene.lastLayout + "&route=" + fieldScene.lastRoute + "&ctwMode=" + fieldScene.isCtwMode;
+  var param = "?layout=" + fieldScene.lastLayout + "&route=" + fieldScene.lastRoute + "&ctwMode=" + fieldScene.isCtwMode + "&sizeX=" + SIZE_X + "&sizeY=" + SIZE_Y;
   window.open("puzzle.html" + param, null);
 }
 var comboNum = 0;
@@ -373,6 +408,7 @@ function openTodaysQuestion(){
 }
 
 function layoutImageFileLoaded(file){
+  return;
   var canvas = document.createElement("canvas");
   // document.body.appendChild(canvas); // Todo! TestCode
   var ctx = canvas.getContext('2d');

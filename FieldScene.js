@@ -3,7 +3,7 @@
  * @classs
  * @constructor
  */
-var FieldScene = function(elementId){
+var FieldScene = function(elementId, size_x, size_y){
   var self = this;
   this.mouseInfo = new MouseInfo();
   this.frameCount = 0;
@@ -21,8 +21,8 @@ var FieldScene = function(elementId){
   this.ctwTimerStarted = false;
 
   this.routeInfos = new Array();
-  this.hNum = 6;
-  this.vNum = 5 * 2;
+  this.hNum = size_y;
+  this.vNum = size_x * 2;
   this.balls = new Array(this.hNum * this.vNum);
   this.combos = new Array();
   this.moveNum = 0;
@@ -65,15 +65,15 @@ var FieldScene = function(elementId){
     if(!layout){
       return;
     }
-    if(layout.length == 5 * 6){
+    if(layout.length == self.hNum * self.vNum / 2){
       for(var i = 0 ; i < layout.length ; ++ i){
-        self.createBall(Math.floor(i % self.hNum), Math.floor(i / self.hNum) + 5, Number(layout.charAt(i)));
+        self.createBall(Math.floor(i % self.hNum), Math.floor(i / self.hNum) + self.vNum / 2, Number(layout.charAt(i)));
       }
     }
   };
   this.saveLayout = function(){
     self.lastLayout = "";
-    for(var y = 5 ; y < self.vNum ; ++ y){
+    for(var y = self.vNum / 2 ; y < self.vNum ; ++ y){
       for(var x = 0 ; x < self.hNum ; ++ x){
         var ball = self.balls[x + y * self.hNum];
         if(ball){
@@ -106,7 +106,7 @@ var FieldScene = function(elementId){
   };
   this.reset = function(){
     try{
-      for(var y = 5 ; y < self.vNum ; ++ y){
+      for(var y = self.vNum / 2 ; y < self.vNum ; ++ y){
         for(var x = 0 ; x < self.hNum ; ++ x){
           var color = self.random.nextInt(0, /*BallColor.NUM*/ 6);
           self.balls[x + y * self.hNum] = new Ball(self.gridPointToPoint(new Point(x, y)), color, BALL_SIZE);
@@ -136,8 +136,8 @@ var FieldScene = function(elementId){
     ctx.fillStyle = "#332222";
     ctx.fillRect(0, 0, self.canvas.width, self.canvas.height);
     ctx.fillStyle = "#553322";
-    for(var y = 0 ; y < 5 ; ++ y){
-      for(var x = 0 ; x < 6 ; ++ x){
+    for(var y = 0 ; y < self.vNum ; ++ y){
+      for(var x = 0 ; x < self.hNum ; ++ x){
         if((x + y) % 2 == 1){
           ctx.fillRect(x * BALL_SIZE, y * BALL_SIZE, BALL_SIZE, BALL_SIZE);
         }
@@ -146,7 +146,7 @@ var FieldScene = function(elementId){
     ctx.restore();
     // ボール描画
     ctx.save();
-    ctx.translate(0, - BALL_SIZE * 5);
+    ctx.translate(0, - BALL_SIZE * self.vNum / 2);
     var drawBall = function(ball){
       var image = null;
       switch(ball.color){
@@ -191,7 +191,7 @@ var FieldScene = function(elementId){
   };
   this.updateMouseInfo = function(mouseInfo){
     self.mouseInfo = mouseInfo.clone();
-    self.mouseInfo.point.y = self.mouseInfo.point.y + BALL_SIZE * 5;
+    self.mouseInfo.point.y = self.mouseInfo.point.y + BALL_SIZE * self.vNum / 2;
   };
   // グリッド座標から座標に
   this.gridPointToPoint = function(gridPoint){
@@ -308,6 +308,7 @@ var FieldStrategyDropEdit = function(parent){
     // ボタンが押されている
     if(parent.mouseInfo.pressed){
       var gridPoint = parent.pointToGridPoint(parent.mouseInfo.point);
+      console.log(gridPoint);
       var selectedColor = getSelectedColor();
       var doSet = true;
       // 同じグリッドに同じ色を何度も置かないように
@@ -349,7 +350,7 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
   self.modeFrameCount = 0;
   // 上から新しいブロックを降らせない場合は、画面外に存在するドロップを削除しておく
   if(!fallNewDrop){
-    for(var y = 0 ; y < 5 ; ++ y){
+    for(var y = 0 ; y < parent.vNum/2 ; ++ y){
       for(var x = 0 ; x < parent.hNum ; ++ x){
         parent.balls[x + y * parent.hNum] = null;
       }
@@ -445,8 +446,8 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
       var bombList = [];
       for(var x = 0 ; x < parent.hNum ; ++ x){
         for(var y = 0; y < parent.vNum / 2 ; ++ y){
-          var n = 30 + x + y * parent.hNum;
-          if (bombDeleteLists.indexOf(n - 30) != -1){
+          var n =  parent.hNum * parent.vNum / 2 + x + y * parent.hNum;
+          if (bombDeleteLists.indexOf(n - parent.hNum * parent.vNum / 2) != -1){
             continue;
           }
           if (parent.balls[n] == null){
@@ -465,8 +466,8 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
       }
       for(var key in bombList){
         hasBomb = true
-        var nn = 30 + bombList[key][0] + bombList[key][1] * parent.hNum;
-        if (bombDeleteLists.indexOf(nn - 30) != -1) {
+        var nn = parent.hNum * parent.vNum / 2 + bombList[key][0] + bombList[key][1] * parent.hNum;
+        if (bombDeleteLists.indexOf(nn - parent.hNum * parent.vNum / 2) != -1) {
           continue;
         }
         parent.balls[nn] = null;
@@ -818,7 +819,7 @@ var FieldStrategyDropMove = function(parent, recordPlay){
           var angleIsSlant = (angle > (90 * 0) + 45 - 15 && angle < (90 * 0) + 45 + 15) || (angle > (90 * 1) + 45 - 15 && angle < (90 * 1) + 45 + 15) || (angle > (90 * 2) + 45 - 15 && angle < (90 * 2) + 45 + 15) || (angle > (90 * 3) + 45 - 15 && angle < (90 * 3) + 45 + 15);
         // ボールの存在グリッドが変わったかを判定
         if(self.lastGridPoint.x != newGridPoint.x || self.lastGridPoint.y != newGridPoint.y){
-//           console.log("grid changed! ("+self.lastGridPoint.x+","+self.lastGridPoint.y+")->("+newGridPoint.x+","+newGridPoint.y+")");
+          console.log("grid changed! ("+self.lastGridPoint.x+","+self.lastGridPoint.y+")->("+newGridPoint.x+","+newGridPoint.y+")");
           var slantMove = (direction == Direction8.TENKEY_1) || (direction == Direction8.TENKEY_3) || (direction == Direction8.TENKEY_7) || (direction == Direction8.TENKEY_9);
 //           console.log("angle="+angle+" angleIsSlant="+angleIsSlant+" slantMove="+slantMove);
           // 移動した角度が45度に近い場合は斜め移動以外は移動を保留

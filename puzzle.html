@@ -38,7 +38,7 @@
     <script type="text/javascript" charset="UTF-8" src="main.js"></script>
     <script type="text/javascript" charset="UTF-8" src="ads_init.js"></script>
   </head>
-  <body id="body" onload="javascript:init();">
+  <body id="body" onload="javascript:init(true);">
     <div id="top" style="display:none;"><a href="index.html">PADStimulator</a></div>
     <div id="description" style="display:block;margin:10px;">
       <div><h1 id="title">PADStimulator</h2></div>
@@ -49,12 +49,20 @@
       <div style="float:left;">
         <div>
           <ul id="tab" class="button-group">
+            <li><button style="width:120px;height:48px;" class="button" id="button5x4" onclick="javascript:setBoardSize(4, 5);">5 × 4</button></li>
+            <li><button style="width:120px;height:48px;" class="button" id="button6x5" onclick="javascript:setBoardSize(5, 6);">6 × 5</button></li>
+            <li><button style="width:120px;height:48px;" class="button" id="button7x6" onclick="javascript:setBoardSize(6, 7);">7 × 6</button></li>
+          </ul>
+        </div>
+        <div>
+          <ul id="tab" class="button-group">
             <li><button style="width:120px;height:48px;" class="button" id="buttonEditMode" onclick="javascript:setMode(0);">設定版面</button></li>
             <li><button style="width:120px;height:48px;" class="button" id="buttonRecordMode" onclick="javascript:setMode(1);">轉珠</button></li>
             <li><button style="width:120px;height:48px;" class="button" id="buttonPlayMode" onclick="javascript:setMode(2);">重播轉珠路徑</button></li>
           </ul>
         </div>
-        <div>
+
+        <div id="canvasDiv">
           <canvas id="fieldCanvas" style="background-color:#888888;" width="384" height="320"></canvas><br />
         </div>
         <table width="100%">
