@@ -340,7 +340,7 @@ function parseRouteInfo(recordInfoString){
     // 開始座標
     var route = new RouteInfo();
     route.startGrid.x = Number(routeText[0].charAt(0));
-    route.startGrid.y = Number(routeText[0].charAt(1));
+    route.startGrid.y = Number(routeText[0].substr(1, routeText[0].length));
     // ルート
     for(var j = 0 ; j < routeText[1].length ; ++ j){
       route.route[j] = Number(routeText[1].charAt(j));

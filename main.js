@@ -216,6 +216,7 @@ function setMode(mode){
       break;
     case Mode.PLAY:
       // レイアウトを復元
+      // console.log(fieldScene.lastRoute);
       if(fieldScene.lastLayout){
         fieldScene.reloadByLayout(fieldScene.lastLayout);
       }
@@ -286,7 +287,7 @@ function toggleMoveMode(){
   var button = document.getElementById("buttonToggleMoveMode");
   switch(moveMode){
   case MoveMode.NORMAL:
-    button.innerHTML = "通常モード";
+    button.innerHTML = "正常模式";
     break;
   case MoveMode.CTW5:
     button.innerHTML = "改變世界 5秒";

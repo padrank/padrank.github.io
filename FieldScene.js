@@ -819,7 +819,7 @@ var FieldStrategyDropMove = function(parent, recordPlay){
           var angleIsSlant = (angle > (90 * 0) + 45 - 15 && angle < (90 * 0) + 45 + 15) || (angle > (90 * 1) + 45 - 15 && angle < (90 * 1) + 45 + 15) || (angle > (90 * 2) + 45 - 15 && angle < (90 * 2) + 45 + 15) || (angle > (90 * 3) + 45 - 15 && angle < (90 * 3) + 45 + 15);
         // ボールの存在グリッドが変わったかを判定
         if(self.lastGridPoint.x != newGridPoint.x || self.lastGridPoint.y != newGridPoint.y){
-          console.log("grid changed! ("+self.lastGridPoint.x+","+self.lastGridPoint.y+")->("+newGridPoint.x+","+newGridPoint.y+")");
+          // console.log("grid changed! ("+self.lastGridPoint.x+","+self.lastGridPoint.y+")->("+newGridPoint.x+","+newGridPoint.y+")");
           var slantMove = (direction == Direction8.TENKEY_1) || (direction == Direction8.TENKEY_3) || (direction == Direction8.TENKEY_7) || (direction == Direction8.TENKEY_9);
 //           console.log("angle="+angle+" angleIsSlant="+angleIsSlant+" slantMove="+slantMove);
           // 移動した角度が45度に近い場合は斜め移動以外は移動を保留
