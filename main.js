@@ -368,6 +368,9 @@ function shareImage(){
 }
 function shareWeb(){
   // パラメータ作成
+  if(fieldScene.lastLayout == null){
+    setMode(Mode.MOVE);
+  }
   var param = "?layout=" + fieldScene.lastLayout + "&route=" + fieldScene.lastRoute + "&ctwMode=" + fieldScene.isCtwMode + "&sizeX=" + SIZE_X + "&sizeY=" + SIZE_Y;
   window.open("puzzle.html" + param, null);
 }
