@@ -326,16 +326,18 @@ var FieldStrategyDropEdit = function(parent){
       var doSet = true;
       // 同じグリッドに同じ色を何度も置かないように
       if(self.lastSetGrid != null){
-	if(self.lastSetGrid.x == gridPoint.x && self.lastSetGrid.y == gridPoint.y && self.lastSetColor == selectedColor){
-	  doSet = false;
-	}
+      	if(self.lastSetGrid.x == gridPoint.x && self.lastSetGrid.y == gridPoint.y && self.lastSetColor == selectedColor){
+      	  doSet = false;
+      	}
       }
       if(doSet){
-	parent.deleteBallAtGridPoint(gridPoint);
-	var ball = new Ball(parent.gridPointToPoint(gridPoint), selectedColor, BALL_SIZE);
-	parent.setBallAtGridPoint(ball, gridPoint);
-	self.lastSetGrid = gridPoint.clone();
-	self.lastSetColor = selectedColor;
+        if (selectedColor != BallColor.BOMB2) {
+        	parent.deleteBallAtGridPoint(gridPoint);
+        	var ball = new Ball(parent.gridPointToPoint(gridPoint), selectedColor, BALL_SIZE);
+        	parent.setBallAtGridPoint(ball, gridPoint);
+        	self.lastSetGrid = gridPoint.clone();
+        	self.lastSetColor = selectedColor;
+        }
       }
     }
   };
