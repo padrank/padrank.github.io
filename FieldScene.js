@@ -67,7 +67,12 @@ var FieldScene = function(elementId, size_x, size_y){
     }
     if(layout.length == self.hNum * self.vNum / 2){
       for(var i = 0 ; i < layout.length ; ++ i){
-        self.createBall(Math.floor(i % self.hNum), Math.floor(i / self.hNum) + self.vNum / 2, Number(layout.charAt(i)));
+        if (layout.charAt(i) == 'A') {
+          self.createBall(Math.floor(i % self.hNum), Math.floor(i / self.hNum) + self.vNum / 2, 11);
+        }
+        else {
+          self.createBall(Math.floor(i % self.hNum), Math.floor(i / self.hNum) + self.vNum / 2, Number(layout.charAt(i)));
+        }
       }
     }
   };
@@ -77,7 +82,14 @@ var FieldScene = function(elementId, size_x, size_y){
       for(var x = 0 ; x < self.hNum ; ++ x){
         var ball = self.balls[x + y * self.hNum];
         if(ball){
-          self.lastLayout += String(self.balls[x + y * self.hNum].color);
+          if(self.balls[x + y * self.hNum].color > 10){
+            switch(self.balls[x + y * self.hNum].color){
+              case BallColor.CROSS: self.lastLayout += 'A'; break;
+            }
+          }
+          else{
+            self.lastLayout += String(self.balls[x + y * self.hNum].color);
+          }
         }else{
           self.lastLayout += " ";
         }
@@ -161,6 +173,7 @@ var FieldScene = function(elementId, size_x, size_y){
       case BallColor.OZYAMA:image = ImageResource.BALL_OZYAMA;break;
       case BallColor.BOMB:image = ImageResource.BALL_BOMB;break;
       case BallColor.BOMB2:image = ImageResource.BALL_BOMB2;break;
+      case BallColor.CROSS:image = ImageResource.BALL_CROSS;break;
       }
       ctx.globalAlpha = ball.alpha;
       ctx.drawImage(image, ball.point.x, ball.point.y, BALL_SIZE, BALL_SIZE);
@@ -339,7 +352,6 @@ var FieldStrategyDropEdit = function(parent){
 var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
   var Mode = {
     WAITING:0,
-    // BOMB_CHECK:1,
     TRY_DELETE:1,
     DELETING:2,
     TRY_DROP:3,
@@ -383,44 +395,6 @@ var FieldStrategyDropDelete = function(parent, fallNewDrop, recordPlay){
     }
     ++ self.modeFrameCount;
   };
-
-  // this.updateBombCheck = function(){
-  //
-  //   var checkBalls = parent.balls.slice(parent.hNum * parent.vNum / 2, parent.hNum * parent.vNum);
-  //   var bombClearRow = [];
-  //   var bombClearCol = [];
-  //   for (var n in checkBalls) {
-  //     if (checkBalls[n].color == 9) {
-  //       bombClearRow.push(Math.round(n/6));
-  //       bombClearCol.push(n % 6);
-  //     }
-  //   }
-  //
-  //   for (var n in bombClearRow) {
-  //     var loc = n * 6;
-  //     while (true) {
-  //       if (checkBalls[loc] === undefined) {
-  //         break;
-  //       }
-  //       checkBalls[loc] = null;
-  //       loc += 1;
-  //     }
-  //   }
-  //
-  //   for (var n in bombClearCol) {
-  //     var loc = n;
-  //     while (true) {
-  //       if (checkBalls[loc] === undefined) {
-  //         break;
-  //       }
-  //       checkBalls[loc] = null;
-  //       loc += 6;
-  //     }
-  //   }
-  //
-  //   self.mode = Mode.TRY_DROP;
-  //   // updateInfo();
-  // };
 
   this.updateTryDelete = function(){
     // ブロックを走査して消えるもの一覧を取得。

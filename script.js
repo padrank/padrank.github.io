@@ -658,8 +658,10 @@ function search(){
 
   document.getElementById("result").innerHTML = '<table id="result-table" class="display nowrap" width="100%"></table>';
   var result_table = document.getElementById("result-table");
-  var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性/副屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
+  // var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性/副屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th></tr></thead><tbody>";
+  var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性/副屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th><th>主動技能</th><th>初始CD</th><th>最小CD</th><th>隊長技能</th></tr></thead><tbody>";
   var rank = 1;
+
   for(var r = 0; r < Math.min(100, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
       continue;
@@ -681,7 +683,7 @@ function search(){
       }
     }
 
-    table_innerHTML += '</td>'
+    table_innerHTML += '</div></td>';
 
     // 屬性
     table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2];
@@ -718,7 +720,12 @@ function search(){
 
     table_innerHTML += "</td>";
     table_innerHTML += "<td>" + results[r][7] + "(Lv." + results[r][6] + ")</td>";
-    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td></tr>";
+    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td>";
+
+    table_innerHTML += '<td><span style="white-space: normal;">' + results[r][9].skill + '</span></td>';
+    table_innerHTML += '<td><span>' + results[r][9].skill_max_cd + '</span></td>';
+    table_innerHTML += '<td><span>' + results[r][9].skill_min_cd + '</span></td>';
+    table_innerHTML += '<td><span>' + results[r][9].leader_skill + '</span></td></tr>';
 
     rank += 1;
   }
@@ -728,9 +735,13 @@ function search(){
   $(document).ready(function() {
       $('#result-table').DataTable( {
           "order": [[ 4, "desc" ]],
-          "responsive": true
+          "responsive": true,
       } );
+
   } );
+
+  // document.getElementById('result').style.display = 'block';
+
 
 
 }

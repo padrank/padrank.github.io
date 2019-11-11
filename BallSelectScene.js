@@ -50,6 +50,7 @@ var BallSelectScene = function(elementId){
       ctx.drawImage(ImageResource.BALL_POISON2, BALL_SIZE * 1 + MARGINE, BALL_SIZE * 1 + MARGINE, BALL_SIZE - MARGINE * 2, BALL_SIZE - MARGINE * 2);
       ctx.drawImage(ImageResource.BALL_OZYAMA, BALL_SIZE * 2 + MARGINE, BALL_SIZE * 1 + MARGINE, BALL_SIZE - MARGINE * 2, BALL_SIZE - MARGINE * 2);
       ctx.drawImage(ImageResource.BALL_BOMB, BALL_SIZE * 3 + MARGINE, BALL_SIZE * 1 + MARGINE, BALL_SIZE - MARGINE * 2, BALL_SIZE - MARGINE * 2);
+      ctx.drawImage(ImageResource.BALL_CROSS, BALL_SIZE * 5 + MARGINE, BALL_SIZE * 1 + MARGINE, BALL_SIZE - MARGINE * 2, BALL_SIZE - MARGINE * 2);
       // 枠線描画
       ctx.strokeStyle = "#AAFFAA";
       ctx.lineWidth = 3;

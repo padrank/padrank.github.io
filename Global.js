@@ -53,7 +53,8 @@ var BallColor = {
     OZYAMA:8,
     BOMB:9,
     BOMB2:10,
-    NUM:11
+    CROSS:11,
+    NUM:12
 };
 
 var Direction8 = {
@@ -80,6 +81,7 @@ var ImageResource = {
     BALL_OZYAMA:null,
     BALL_BOMB:null,
     BALL_BOMB2:null,
+    BALL_CROSS:null,
     TITLE_01:null,
 };
 
@@ -105,6 +107,8 @@ ImageResource.BALL_BOMB = new Image();
 ImageResource.BALL_BOMB.src = "images/block_bomb.png";
 ImageResource.BALL_BOMB2 = new Image();
 ImageResource.BALL_BOMB2.src = "images/block_bomb.png";
+ImageResource.BALL_CROSS = new Image();
+ImageResource.BALL_CROSS.src = "images/block_cross.png";
 ImageResource.TITLE_01 = new Image();
 ImageResource.TITLE_01.src = "http://pazudorablog.up.d.seesaa.net/pazudorablog/image/BL1ZcXkCYAA9QF1.jpg?d=a69";
 ImageResource.TITLE_01.onload = function(){
@@ -273,7 +277,18 @@ function createDeleteList(blocks, hNum, vNum){
       }
     })();
     // console.log("ret.length = " + ret.length);
-    return ret;
+    var rett = new Array();
+
+    for (var i in ret) {
+      var ball = blocks[ret[i][0].x + ret[i][0].y * hNum];
+      if (ball.color == BallColor.CROSS) {
+        continue;
+      }
+      else {
+        rett.push(ret[i]);
+      }
+    }
+    return rett;
   }catch(e){
     // console.log("createDeleteList/n" + e);
     return ret;

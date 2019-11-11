@@ -369,7 +369,7 @@ function shareImage(){
 }
 function shareWeb(){
   // パラメータ作成
-  if(fieldScene.lastLayout == null){
+  if(fieldScene.lastLayout == null || currentMode == Mode.EDIT){
     setMode(Mode.MOVE);
   }
   var param = "?layout=" + fieldScene.lastLayout + "&route=" + fieldScene.lastRoute + "&ctwMode=" + fieldScene.isCtwMode + "&sizeX=" + SIZE_X + "&sizeY=" + SIZE_Y;
@@ -397,6 +397,7 @@ function updateInfo(){
   document.getElementById("poison2").style.opacity = deletedColors[BallColor.POISON2] ? "1.0" : "0.4";
   document.getElementById("bomb").style.opacity = deletedColors[BallColor.BOMB] ? "1.0" : "0.4";
   document.getElementById("ozyama").style.opacity = deletedColors[BallColor.OZYAMA] ? "1.0" : "0.4";
+  document.getElementById("cross").style.opacity = deletedColors[BallColor.CROSS] ? "1.0" : "0.4";
 }
 function openTodaysQuestion(){
   // パラメータ作成
