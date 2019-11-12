@@ -424,6 +424,23 @@ function applyAwokenFilter(data, awoken_filter){
   return true;
 }
 
+function toCurrency(number) {
+    var n = number;
+    var r = "";
+    do {
+        mod = n % 1000;
+        n = n / 1000;
+        r = ~~mod + (!!r ? "," + r : "")
+    } while (n > 1)
+
+    var strNumber = number + "";
+    var index = strNumber.indexOf(".");
+    if (index > 0) {
+        r += strNumber.substring(index);
+    }
+    return r;
+}
+
 function search(){
   var enemy_property = document.getElementById("property").value;
   var type1 = document.getElementById('type1').value;
@@ -719,8 +736,8 @@ function search(){
     }
 
     table_innerHTML += "</td>";
-    table_innerHTML += "<td>" + results[r][7] + "(Lv." + results[r][6] + ")</td>";
-    table_innerHTML += "<td>" + results[r][8].toFixed(1) + "</td>";
+    table_innerHTML += "<td>" + toCurrency(results[r][7]) + " (Lv." + results[r][6] + ")</td>";
+    table_innerHTML += "<td>" + toCurrency(results[r][8].toFixed(1)) + "</td>";
 
     table_innerHTML += '<td><span style="white-space: normal;">' + results[r][9].skill + '</span></td>';
     table_innerHTML += '<td><span>' + results[r][9].skill_max_cd + '</span></td>';
