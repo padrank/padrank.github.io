@@ -4,7 +4,9 @@ var types_rev = {"ドラゴン": "0", "神": "1", "悪魔": "2", "マシン": "3
 var double_rule = {"fire": "wood", "water": "fire", "wood": "water", "light": "dark", "dark": "light"};
 var half_rule = {"fire": "water", "water": "wood", "wood": "fire", "light": "", "dark": ""};
 
-var chi_to_eng = {"火": "fire", "水": "water", "木": "wood", "光": "light", "暗": "dark"};
+var chi_to_eng = {"火": "fire", "水": "water", "木": "wood", "光": "light", "暗": "dark",
+"神": "god", "龍": "dragon", "惡魔": "demon", "機械": "machine", "平衡": "balance",
+"攻擊": "attack", "體力": "strength", "回復": "healing", "進化用": "evo", "覺醒用": "aw", "強化用": "power"};
 var eng_to_chi = {"fire": "火", "water": "水", "wood": "木", "light": "光", "dark": "暗"};
 
 var img_path = {
@@ -85,6 +87,17 @@ var img_path = {
   "攻撃弱化": "img/k84.png",
   "回復弱化": "img/k85.png",
   "覚醒アシスト": "img/assist.png",
+  "攻擊": "images/type/attack.png",
+  "覺醒用": "images/type/aw.png",
+  "平衡": "images/type/balance.png",
+  "惡魔": "images/type/demon.png",
+  "龍": "images/type/dragon.png",
+  "進化用": "images/type/evo.png",
+  "神": "images/type/god.png",
+  "回復": "images/type/healing.png",
+  "機械": "images/type/machine.png",
+  "強化用": "images/type/power.png",
+  "體力": "images/type/strength.png",
   };
 var potential_path = {
   "ドラゴンキラー": "img/sk03.png",
@@ -193,6 +206,7 @@ var advanced_awoken = {
 }
 
 var property_filter = {"fire": true, "water": true, "wood": true, "light": true, "dark": true};
+var type_filter = {"dragon": true, "god": true, "demon": true, "machine": true, "balance": true, "attack": true, "strength": true, "healing": true, "evo": true, "aw": true, "power": true};
 
 function removeOptions(selectbox){
   var i;
@@ -288,6 +302,17 @@ function monsterPropertyClick(self){
   else{
     document.getElementById(self.id).classList.add("table-dark");
     property_filter[self.id] = true;
+  }
+}
+
+function monsterTypeClick(self){
+  if(document.getElementById(self.id).classList.contains("table-dark")){
+    document.getElementById(self.id).classList.remove("table-dark");
+    type_filter[self.id] = false;
+  }
+  else{
+    document.getElementById(self.id).classList.add("table-dark");
+    type_filter[self.id] = true;
   }
 }
 
@@ -679,12 +704,43 @@ function search(){
   var table_innerHTML = "<thead><tr><th>名稱</th><th>主屬性/副屬性</th><th></th><th>原始攻擊(等級)</th><th>最終攻擊</th><th>主動技能</th><th>初始CD</th><th>最小CD</th><th>隊長技能</th></tr></thead><tbody>";
   var rank = 1;
 
+  var type_filter_rule = "or";
+  if(document.getElementById("type-filter-rule").checked){
+    type_filter_rule = "and";
+  }
+
   for(var r = 0; r < Math.min(100, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
       continue;
     }
+    // 屬性篩選
     if(!property_filter[chi_to_eng[[results[r][2]]]]) {
       continue;
+    }
+
+    // type篩選
+    if(type_filter_rule == "or"){
+      var flag = false;
+      for(var t = 0; t < results[r][9].type.length; t++){
+        if(type_filter[chi_to_eng[results[r][9].type[t]]]){
+          flag = true
+          break;
+        }
+      }
+      if (!flag){
+        continue;
+      }
+    }
+    else{
+      var tmp_filter = {"dragon": false, "god": false, "demon": false, "machine": false, "balance": false, "attack": false, "strength": false, "healing": false, "evo": false, "aw": false, "power": false};
+      for(var t = 0; t < results[r][9].type.length; t++){
+        tmp_filter[chi_to_eng[results[r][9].type[t]]] = true;
+      }
+      console.log(tmp_filter);
+      console.log(type_filter);
+      if (JSON.stringify(tmp_filter) !== JSON.stringify(type_filter)){
+        continue;
+      }
     }
 
     table_innerHTML += '<tr><td><div>' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div><div>";
@@ -703,10 +759,17 @@ function search(){
     table_innerHTML += '</div></td>';
 
     // 屬性
-    table_innerHTML += '<td><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2];
+    table_innerHTML += '<td><div><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2];
     if (results[r][9].sub_property !== "") {
-      table_innerHTML += '/<img src="' + img_path[results[r][9].sub_property] + '" width="15px" height="15px">' + results[r][9].sub_property + "</td>";
+      table_innerHTML += '/<img src="' + img_path[results[r][9].sub_property] + '" width="15px" height="15px">' + results[r][9].sub_property ;
     }
+    table_innerHTML += '</div>';
+
+    for(var t = 0; t < results[r][9].type.length; t++){
+      table_innerHTML += '<img src="' + img_path[results[r][9].type[t]] + '" width="20px" height="20px">';
+    }
+    table_innerHTML += "</td></div>";
+
 
     table_innerHTML += "<td>";
     if(results[r][3].length != 0){
