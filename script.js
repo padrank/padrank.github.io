@@ -205,8 +205,8 @@ var advanced_awoken = {
   '毒耐性＋': ['毒耐性', 5],
 }
 
-var property_filter = {"fire": true, "water": true, "wood": true, "light": true, "dark": true};
-var type_filter = {"dragon": true, "god": true, "demon": true, "machine": true, "balance": true, "attack": true, "strength": true, "healing": true, "evo": true, "aw": true, "power": true};
+var property_filter = {"fire": false, "water": false, "wood": false, "light": false, "dark": false};
+var type_filter = {"dragon": false, "god": false, "demon": false, "machine": false, "balance": false, "attack": false, "strength": false, "healing": false, "evo": false, "aw": false, "power": false};
 
 function removeOptions(selectbox){
   var i;
@@ -313,6 +313,14 @@ function monsterTypeClick(self){
   else{
     document.getElementById(self.id).classList.add("table-dark");
     type_filter[self.id] = true;
+  }
+}
+
+function clearAwokenFilter(){
+  for (var item in awoken_list){
+    document.getElementById(awoken_list[item]).value = '0';
+    awokenFilterChange(awoken_list[item]);
+
   }
 }
 
@@ -709,37 +717,45 @@ function search(){
     type_filter_rule = "and";
   }
 
+  var property_value = Object.values(property_filter).map(item => item);
+  var type_value = Object.values(type_filter).map(item => item);
+
+  var property_all = property_value.every(function(item){return item === false})
+  var type_all = type_value.every(function(item){return item === false})
+
   for(var r = 0; r < Math.min(100, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
       continue;
     }
-    // 屬性篩選
-    if(!property_filter[chi_to_eng[[results[r][2]]]]) {
-      continue;
+    if(!property_all){
+      // 屬性篩選
+      if(!property_filter[chi_to_eng[[results[r][2]]]]) {
+        continue;
+      }
     }
 
-    // type篩選
-    if(type_filter_rule == "or"){
-      var flag = false;
-      for(var t = 0; t < results[r][9].type.length; t++){
-        if(type_filter[chi_to_eng[results[r][9].type[t]]]){
-          flag = true
-          break;
+    if(!type_all){
+      // type篩選
+      if(type_filter_rule == "or"){
+        var flag = false;
+        for(var t = 0; t < results[r][9].type.length; t++){
+          if(type_filter[chi_to_eng[results[r][9].type[t]]]){
+            flag = true
+            break;
+          }
+        }
+        if (!flag){
+          continue;
         }
       }
-      if (!flag){
-        continue;
-      }
-    }
-    else{
-      var tmp_filter = {"dragon": false, "god": false, "demon": false, "machine": false, "balance": false, "attack": false, "strength": false, "healing": false, "evo": false, "aw": false, "power": false};
-      for(var t = 0; t < results[r][9].type.length; t++){
-        tmp_filter[chi_to_eng[results[r][9].type[t]]] = true;
-      }
-      console.log(tmp_filter);
-      console.log(type_filter);
-      if (JSON.stringify(tmp_filter) !== JSON.stringify(type_filter)){
-        continue;
+      else{
+        var tmp_filter = {"dragon": false, "god": false, "demon": false, "machine": false, "balance": false, "attack": false, "strength": false, "healing": false, "evo": false, "aw": false, "power": false};
+        for(var t = 0; t < results[r][9].type.length; t++){
+          tmp_filter[chi_to_eng[results[r][9].type[t]]] = true;
+        }
+        if (JSON.stringify(tmp_filter) !== JSON.stringify(type_filter)){
+          continue;
+        }
       }
     }
 
