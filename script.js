@@ -294,6 +294,21 @@ function initType3(){
   }
 }
 
+function showDetail(event, _id){
+  detail = document.getElementById('detail-' + _id)
+  detail.style.display = 'block';
+  // console.log(event.clientY,event.clientX)
+  detail.style.top = event.pageY + 'px';
+  detail.style.left = event.pageX + 'px';
+}
+
+function closeDetail(event, _id){
+  detail = document.getElementById('detail-' + _id)
+  detail.style.display = 'none';
+  detail.style.top ='0';
+  detail.style.left = '0';
+}
+
 function monsterPropertyClick(self){
   if(document.getElementById(self.id).classList.contains("table-dark")){
     document.getElementById(self.id).classList.remove("table-dark");
@@ -722,8 +737,7 @@ function search(){
 
   var property_all = property_value.every(function(item){return item === false})
   var type_all = type_value.every(function(item){return item === false})
-
-  for(var r = 0; r < Math.min(100, results.length); r++) {
+  for(var r = 0; r < Math.min(50, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
       continue;
     }
@@ -758,8 +772,7 @@ function search(){
         }
       }
     }
-
-    table_innerHTML += '<tr><td><div>' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div><div>";
+    table_innerHTML += '<tr><td onmouseover="showDetail(event, ' + "'" + results[r][0] + "'" +')" onmouseleave="closeDetail(event, ' + "'" + results[r][0] + "'" +')">' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div></a><div>";
 
     for(var a = 0; a < results[r][9].awoken.length; a++){
       table_innerHTML += '<img src="' + img_path[results[r][9].awoken[a]] + '" width="20px" height="20px">';
@@ -824,9 +837,24 @@ function search(){
     table_innerHTML += '<td><span>' + results[r][9].leader_skill + '</span></td></tr>';
 
     rank += 1;
+
+    if (results[r][9].evo.length >= 1){
+      var detail_innerHTML = '';
+      detail_innerHTML += "<div class='rounded' id='detail-" + results[r][0] + "' style='display:none;position:absolute;background:#CCCCCC;padding:5px'>";
+      for(var e = 0; e < results[r][9].evo.length; e++){
+        detail_innerHTML += '<span style="padding:5px"><img src="https://gamewith.akamaized.net/article_tools/pad/gacha/' + results[r][9].evo[e] + '.png" width="30px" height="30px"> ';
+        detail_innerHTML += results[r][9].evo[e] + '</span>';
+      }
+      detail_innerHTML += "</div>";
+
+      document.getElementById('detail').innerHTML += detail_innerHTML;
+    }
   }
+
   table_innerHTML += "</tbody>";
   result_table.innerHTML = table_innerHTML;
+
+
 
   $(document).ready(function() {
       $('#result-table').DataTable( {
@@ -834,7 +862,7 @@ function search(){
           "responsive": true,
       } );
 
-  } );
+  });
 
   // document.getElementById('result').style.display = 'block';
 
