@@ -735,15 +735,18 @@ function search(){
   var property_value = Object.values(property_filter).map(item => item);
   var type_value = Object.values(type_filter).map(item => item);
 
-  var property_all = property_value.every(function(item){return item === false})
-  var type_all = type_value.every(function(item){return item === false})
-  for(var r = 0; r < Math.min(50, results.length); r++) {
+  var property_all = property_value.every(function(item){return item === false});
+  var type_all = type_value.every(function(item){return item === false});
+  var max_result_rows = 50;
+  for(var r = 0; r < Math.min(max_result_rows, results.length); r++) {
     if(square_promise == 'yes' && !results[r][3].includes('ダメージ無効貫通') && !results[r][5].includes('ダメージ無効貫通')){
+      max_result_rows += 1;
       continue;
     }
     if(!property_all){
       // 屬性篩選
       if(!property_filter[chi_to_eng[[results[r][2]]]]) {
+        max_result_rows += 1;
         continue;
       }
     }
@@ -759,6 +762,7 @@ function search(){
           }
         }
         if (!flag){
+          max_result_rows += 1;
           continue;
         }
       }
@@ -768,11 +772,12 @@ function search(){
           tmp_filter[chi_to_eng[results[r][9].type[t]]] = true;
         }
         if (JSON.stringify(tmp_filter) !== JSON.stringify(type_filter)){
+          max_result_rows += 1;
           continue;
         }
       }
     }
-    table_innerHTML += '<tr><td onmouseover="showDetail(event, ' + "'" + results[r][0] + "'" +')" onmouseleave="closeDetail(event, ' + "'" + results[r][0] + "'" +')">' + rank + '. <img src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div></a><div>";
+    table_innerHTML += '<tr><td>' + rank + '. <img onmouseover="showDetail(event, ' + "'" + results[r][0] + "'" +')" onmouseleave="closeDetail(event, ' + "'" + results[r][0] + "'" + ')" src="' + results[r][1] + '" width="50px" height="50px"> ' + results[r][0] + "</div></a><div>";
 
     for(var a = 0; a < results[r][9].awoken.length; a++){
       table_innerHTML += '<img src="' + img_path[results[r][9].awoken[a]] + '" width="20px" height="20px">';
