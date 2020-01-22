@@ -499,6 +499,8 @@ function search(){
   var orb = document.getElementById('orb').value;
   var square_promise = document.getElementById('square-promise').value;
   var combo = document.getElementById('combo').value;
+  var has_poison = document.getElementById('poison').value;
+  var has_jama = document.getElementById('jama').value;
   var level = document.getElementById('level').value;
   var plus = document.getElementById('plus').value;
   var multi = document.getElementById('multi').value;
@@ -593,6 +595,14 @@ function search(){
       }
       if(multi == "yes" && datas[i].awoken[j] == "マルチブースト"){
         basic_attack *= 1.5;
+        processes["awoken"].push(datas[i].awoken[j]);
+      }
+      if(has_poison == "yes" && datas[i].awoken[j] == "毒ドロップの加護"){
+        basic_attack *= 2;
+        processes["awoken"].push(datas[i].awoken[j]);
+      }
+      if(has_jama == "yes" && datas[i].awoken[j] == "お邪魔ドロップの加護"){
+        basic_attack *= 2;
         processes["awoken"].push(datas[i].awoken[j]);
       }
     }
