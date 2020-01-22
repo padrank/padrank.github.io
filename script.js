@@ -742,6 +742,11 @@ function search(){
     type_filter_rule = "and";
   }
 
+  var property_rule = "only_main";
+  if(!document.getElementById("property_rule").checked){
+    property_rule = "unlimited";
+  }
+
   var property_value = Object.values(property_filter).map(item => item);
   var type_value = Object.values(type_filter).map(item => item);
 
@@ -755,9 +760,17 @@ function search(){
     }
     if(!property_all){
       // 屬性篩選
-      if(!property_filter[chi_to_eng[[results[r][2]]]]) {
-        max_result_rows += 1;
-        continue;
+      if(property_rule === 'only_main'){
+        if(!property_filter[chi_to_eng[[results[r][2]]]]) {
+          max_result_rows += 1;
+          continue;
+        }
+      }
+      else{
+        if(!property_filter[chi_to_eng[[results[r][2]]]] && !property_filter[chi_to_eng[[results[r][9].sub_property]]]) {
+          max_result_rows += 1;
+          continue;
+        }
       }
     }
 
@@ -869,7 +882,7 @@ function search(){
   table_innerHTML += "</tbody>";
   result_table.innerHTML = table_innerHTML;
 
-
+  // console.log(results);
 
   $(document).ready(function() {
       $('#result-table').DataTable( {
