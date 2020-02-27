@@ -501,6 +501,7 @@ function search(){
   var combo = document.getElementById('combo').value;
   var has_poison = document.getElementById('poison').value;
   var has_jama = document.getElementById('jama').value;
+  var has_heart9 = document.getElementById('heart9').value;
   var level = document.getElementById('level').value;
   var plus = document.getElementById('plus').value;
   var multi = document.getElementById('multi').value;
@@ -602,6 +603,10 @@ function search(){
         processes["awoken"].push(datas[i].awoken[j]);
       }
       if(has_jama == "yes" && datas[i].awoken[j] == "お邪魔ドロップの加護"){
+        basic_attack *= 2;
+        processes["awoken"].push(datas[i].awoken[j]);
+      }
+      if(has_heart9 == "yes" && datas[i].awoken[j] == "超追加攻撃"){
         basic_attack *= 2;
         processes["awoken"].push(datas[i].awoken[j]);
       }
