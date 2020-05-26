@@ -622,6 +622,9 @@ function search(){
       if(enemy_type.includes(types_rev[datas[i].potential[j].replace("キラー", "")])){
         if(!flag){
           basic_attack *= Math.pow(1.5, potential_num);
+          if(!datas[i].name.includes("転生")){
+            basic_attack /= 1.5;
+          }
         }
         flag = true;
         processes["potential"].push(datas[i].potential[j]);
@@ -843,10 +846,15 @@ function search(){
     }
 
     if(results[r][4].length != 0 && potential_num != 0){
+      var tmp = 0;
+      if(potential_num == 4 && !results[r][0].includes("転生")){
+        tmp = -1;
+      }
+      var show_potential_num = parseInt(tmp) + parseInt(potential_num);
       table_innerHTML += "<div>潛在覺醒：";
-      table_innerHTML += '<img src="' + potential_path[results[r][4][0]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
+      table_innerHTML += '<img src="' + potential_path[results[r][4][0]] + '" width="75px" height="25px">' + '*' + show_potential_num + ' ';
       for(var p = 1; p < results[r][4].length; p++){
-        table_innerHTML += 'or <img src="' + potential_path[results[r][4][p]] + '" width="75px" height="25px">' + '*' + potential_num + ' ';
+        table_innerHTML += 'or <img src="' + potential_path[results[r][4][p]] + '" width="75px" height="25px">' + '*' + show_potential_num + ' ';
       }
       table_innerHTML += "</div>";
     }
