@@ -217,6 +217,9 @@ function removeOptions(selectbox){
 
 function init(){
 
+  // initial update-date
+  document.getElementById('update-date').innerHTML = update_date;
+
   // initial type selection
   var type1 = document.getElementById("type1");
   for(var t=0;t<Object.keys(types).length;t++){
