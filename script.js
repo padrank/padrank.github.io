@@ -772,13 +772,13 @@ function search(){
     if(!property_all){
       // 屬性篩選
       if(property_rule === 'only_main'){
-        if(!property_filter[chi_to_eng[[results[r][2]]]]) {
+        if(!property_filter[chi_to_eng[[results[r][2].trim()]]]) {
           max_result_rows += 1;
           continue;
         }
       }
       else{
-        if(!property_filter[chi_to_eng[[results[r][2]]]] && !property_filter[chi_to_eng[[results[r][9].sub_property]]]) {
+        if(!property_filter[chi_to_eng[[results[r][2].trim()]]] && !property_filter[chi_to_eng[[results[r][9].sub_property]]]) {
           max_result_rows += 1;
           continue;
         }
@@ -827,7 +827,7 @@ function search(){
     table_innerHTML += '</div></td>';
 
     // 屬性
-    table_innerHTML += '<td><div><img src="' + img_path[results[r][2]] + '" width="15px" height="15px">' + results[r][2];
+    table_innerHTML += '<td><div><img src="' + img_path[results[r][2].trim()] + '" width="15px" height="15px">' + results[r][2].trim();
     if (results[r][9].sub_property !== "") {
       table_innerHTML += '/<img src="' + img_path[results[r][9].sub_property] + '" width="15px" height="15px">' + results[r][9].sub_property ;
     }
