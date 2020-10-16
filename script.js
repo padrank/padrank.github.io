@@ -511,6 +511,8 @@ function search(){
   var potential_num = document.getElementById('potential-num').value;
   var super_awoken = document.getElementById('super-awoken').value;
   var awoken_filter = {};
+  var active_skill_text = document.getElementById("active-skill").value;
+  var leader_skill_text = document.getElementById("leader-skill").value;
 
   for (var item in awoken_list){
     awoken_filter[awoken_list[item]] = parseInt(document.getElementById(awoken_list[item]).value);
@@ -532,6 +534,35 @@ function search(){
   var results = [];
 
   for (var i = 0; i < datas.length; i++) {
+
+    // check active_skill
+    var found = true;
+    active_skill_cands = active_skill_text.split(" ");
+    for (var c = 0; c < active_skill_cands.length; c++){
+      if (!active_skill_cands[c]) continue;
+      if (!datas[i]['skill'].includes(active_skill_cands[c])){
+        found = false;
+        break;
+      }
+    }
+    if (!found){
+      continue
+    }
+
+    // check leader_skill
+    var found = true;
+    leader_skill_cands = leader_skill_text.split(" ");
+    for (var c = 0; c < leader_skill_cands.length; c++){
+      if (!leader_skill_cands[c]) continue;
+      if (!datas[i]['leader_skill'].includes(leader_skill_cands[c])){
+        found = false;
+        break;
+      }
+    }
+    if (!found){
+      continue
+    }
+
     var id = datas[i].name.substr(3, datas[i].name.indexOf("-") - 4);
     var image_url = "https://gamewith.akamaized.net/article_tools/pad/gacha/" + id + ".png";
 
@@ -909,7 +940,5 @@ function search(){
   });
 
   // document.getElementById('result').style.display = 'block';
-
-
-
 }
+
