@@ -82,7 +82,7 @@ var img_path = {
   "毒ドロップの加護": "img/k72.png",
   "スキルボイス": "img/k80.png",
   "ダンジョンボーナス": "img/k81.png",
-  "コンボドロップ": "img/k82.png",
+  "コンボドロップ生成": "img/k82.png",
   "HP弱化": "img/k83.png",
   "攻撃弱化": "img/k84.png",
   "回復弱化": "img/k85.png",
@@ -129,7 +129,7 @@ var awoken_list = [
 
   "ガードブレイク",
   "スキルチャージ",
-  "コンボドロップ",
+  "コンボドロップ生成",
   "追加攻撃",
   "超追加攻撃",
 
@@ -508,6 +508,7 @@ function search(){
   var level = document.getElementById('level').value;
   var plus = document.getElementById('plus').value;
   var multi = document.getElementById('multi').value;
+  var voice = document.getElementById('voice').value;
   var potential_num = document.getElementById('potential-num').value;
   var super_awoken = document.getElementById('super-awoken').value;
   var awoken_filter = {};
@@ -630,6 +631,10 @@ function search(){
       }
       if(multi == "yes" && datas[i].awoken[j] == "マルチブースト"){
         basic_attack *= 1.5;
+        processes["awoken"].push(datas[i].awoken[j]);
+      }
+      if(voice == "yes" && datas[i].awoken[j] == "スキルボイス"){
+        basic_attack *= 1.1;
         processes["awoken"].push(datas[i].awoken[j]);
       }
       if(has_poison == "yes" && datas[i].awoken[j] == "毒ドロップの加護"){
