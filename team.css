@@ -1,0 +1,21 @@
+html,
+body {
+  height: 90%
+}
+
+.null-character {
+	display: inline-block;
+	width: 5rem;
+	height: 5rem;
+	background-color: #F5F5F5;
+	border: 1px solid #dee2e6;
+}
+
+.null-sub-character {
+	display: inline-block;
+	transform: translateY(-35%);
+	width: 3rem;
+	height: 3rem;
+	background-color: #F5F5F5;
+	border: 1px solid #dee2e6;
+}
