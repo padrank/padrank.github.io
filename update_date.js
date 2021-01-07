@@ -1,1 +1,1 @@
-var update_date = "2020/12/31";
+var update_date = "2021/01/07";
